@@ -14,8 +14,13 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 //pinia持久化插件
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
+//全局滚动事件
+import  globalScroll from '@h/globalScrollEvent'
+globalScroll()
+
 import App from './App.vue'
 import router from './router'
+
 const app = createApp(App)
 
 

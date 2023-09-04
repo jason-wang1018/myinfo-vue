@@ -1,7 +1,7 @@
 <template>
     <div class="leftBar">
         <div>
-            <el-icon @click="changeCollpse">
+            <el-icon @click="changeCollapse">
                 <component :is="LayoutStore.collapse? Expand:Fold " />
             </el-icon>
         </div>
@@ -32,7 +32,7 @@ const route = useRoute()
 
 const LayoutStore = useLayout()
 
-const changeCollpse = () => {
+const changeCollapse = () => {
     LayoutStore.$patch({
         collapse: !LayoutStore.collapse
     })
