@@ -14,12 +14,34 @@ const router = createRouter({
         {
           path: '/dashBoard',
           name: 'dashBoard',
+          meta:{
+              nav:[
+                {
+                  path:'/',
+                  name:'首页'
+                },
+                {
+                  name:'仪表盘'
+                },
+              ]
+          },
           component: () => import('@v/DashBoard/index.vue')
         },
         //地图
         {
           path: '/map',
           name: 'map',
+          meta:{
+            nav:[
+              {
+                path:'/',
+                name:'首页'
+              },
+              {
+                name:'高德地图'
+              },
+            ]
+        },
           component: () => import('@v/MapPage/index.vue')
         },
       ]

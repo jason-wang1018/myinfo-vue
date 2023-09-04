@@ -7,10 +7,13 @@
         </div>
         <div>
             <el-breadcrumb :separator-icon="ArrowRight">
-                <el-breadcrumb-item :to="{ path: '/' }">homepage</el-breadcrumb-item>
-                <el-breadcrumb-item>promotion management</el-breadcrumb-item>
-                <el-breadcrumb-item>promotion list</el-breadcrumb-item>
-                <el-breadcrumb-item>promotion detail</el-breadcrumb-item>
+
+                <template v-for="item in route.meta.nav" key="item.path">
+
+                    <el-breadcrumb-item  v-if="item.path"  :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
+                    <el-breadcrumb-item v-if="!item.path">{{item.name}}</el-breadcrumb-item>
+
+                </template>
             </el-breadcrumb>
         </div>
 
@@ -18,14 +21,20 @@
 </template>
 
 <script setup lang="ts">
-import { Fold, ArrowRight,Expand } from '@element-plus/icons-vue'
+import { Fold, ArrowRight, Expand } from '@element-plus/icons-vue'
 import useLayout from '@s/layout'
+
+
+import { useRoute, useRouter } from 'vue-router'
+
+const route = useRoute()
+
 
 const LayoutStore = useLayout()
 
 const changeCollpse = () => {
     LayoutStore.$patch({
-        collapse: ! LayoutStore.collapse
+        collapse: !LayoutStore.collapse
     })
 }
 
