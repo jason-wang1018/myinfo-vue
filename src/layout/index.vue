@@ -1,11 +1,41 @@
 <template>
-    <div>主页</div>
-    <Router-view></Router-view>
+    <div class="common-layout indexTheme">
+        <el-container>
+            <el-aside  :width="layoutStore.collapse? 'auto':'200px' ">
+                <Menu></Menu>
+            </el-aside>
+            <el-container>
+                <el-header>
+                    <HeaderTop></HeaderTop>
+                </el-header>
+                <el-main><Router-view></Router-view></el-main>
+                <el-footer>
+                    <Footer></Footer>
+                </el-footer>
+            </el-container>
+        </el-container>
+    </div>
 </template>
 
 <script setup lang="ts">
+import HeaderTop from './components/header/HeaderTop.vue'
+import Menu from './components/menu/Menu.vue'
+import Footer from './components/footer/Footer.vue'
+
+import useLayout from  '@s/layout'
+
+const layoutStore=useLayout()
 </script>
 
 <style lang="less" scoped>
+.indexTheme {
+    height: 100vh;
 
+    .el-container {
+        height: 100vh;
+    }
+    .el-header{
+        padding: 0px;
+    }
+}
 </style>
