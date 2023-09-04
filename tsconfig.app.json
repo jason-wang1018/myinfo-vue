@@ -6,7 +6,15 @@
     "composite": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@a/*": ["./src/api/*"],
+      "@c/*": ["./src/components/*"],
+      "@h/*": ["./src/hooks*"],
+      "@r/*": ["./src/router*"],
+      "@s/*": ["./src/stores/*"],
+      "@u/*": ["./src/utils/*"],
+      "@v/*": ["./src/views/*"],
+      
     }
   }
 }
