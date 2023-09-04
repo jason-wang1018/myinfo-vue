@@ -15,7 +15,7 @@ import RightBar from './components/RightBar.vue';
     display: flex;
     height: 100%;
     align-items: center;
-    align-content: space-between;
+    justify-content: space-between;
     border-bottom: 2px solid #e6e6e6;
 }
 </style>
