@@ -1,7 +1,7 @@
 <template>
     <div class="menuAll">
-        <el-menu default-active="2" class="el-menu-vertical-demo menuBar" :collapse="collapseStore.collapse" @open="handleOpen"
-            text-color="#fff" background-color="#304156" active-text-color="pink" router @close="handleClose">
+        <el-menu  class="el-menu-vertical-demo menuBar" :collapse="collapseStore.collapse" @open="handleOpen"
+            text-color="#fff"  :default-active="route.path"  background-color="#304156" active-text-color="pink" router :collapse-transition="true" @close="handleClose">
 
 
             <el-menu-item index="/dashBoard">
@@ -63,6 +63,7 @@
   
 <script lang="ts" setup>
 
+import router from '@/router';
 import {
     Menu as IconMenu,
     Location,
@@ -73,6 +74,11 @@ import {
 } from '@element-plus/icons-vue'
 
 import useLayout from  '@s/layout'
+import {useRoute} from 'vue-router'
+const route = useRoute()
+
+
+
 
 const collapseStore=useLayout()
 

@@ -36,7 +36,9 @@ const layoutStore=useLayout()
         height: 100vh;
     }
     .el-header{
+        height: 100px;
         padding: 0px;
+        overflow: hidden !important;
     }
 }
 </style>
