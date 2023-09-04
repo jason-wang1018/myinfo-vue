@@ -12,7 +12,6 @@ export default defineConfig({
   server: {
     open: true,
     port: 9420,
-    origin:'0.0.0.0',
     proxy: {
       '/api': {
         target: 'https://www.fastmock.site/mock/935d86475772276cc0f2649e50c82123',

@@ -1,11 +1,12 @@
 <template>
-    <div>主页</div>
-    <Router-view></Router-view>
+    <div>
+        仪表盘
+    </div>
 </template>
 
 <script setup lang="ts">
+
 </script>
 
 <style lang="less" scoped>
-
 </style>
