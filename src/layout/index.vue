@@ -30,6 +30,7 @@ const layoutStore=useLayout()
 <style lang="less" scoped>
 .indexTheme {
     height: 100vh;
+    min-width: 600px;
 
     .el-container {
         height: 100vh;

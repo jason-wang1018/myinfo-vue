@@ -8,7 +8,8 @@ export default function scroll() {
         // if(time) return
         setTimeout(()=>{
             // console.log(innerWidth);
-            if (innerWidth < 600) {
+            if (innerWidth < 700) {
+        
                 const LayoutStore = useLayout()
                 LayoutStore.$patch({
                     collapse: true
