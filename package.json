@@ -12,6 +12,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "axios": "^1.5.0",
     "echarts": "^5.4.3",
     "element-plus": "^2.3.12",

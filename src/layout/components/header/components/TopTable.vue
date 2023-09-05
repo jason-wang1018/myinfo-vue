@@ -20,7 +20,6 @@ const tableStore = useTable()
 
 const tabClick = (pane: any) => {
 
-    console.log(pane.props);
     const matching = tableStore.editableTabs.find(item => item.title == pane.props.label)
     router.push(matching!.path )
 

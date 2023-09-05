@@ -246,12 +246,11 @@ onMounted(() => {
         & .icon {
             width: 40%;
             height: 100%;
-            background: linear-gradient(to right, #a184a0, #da90d0);
+            background: linear-gradient(to right, #c7d2f1, #e3ceeb);
             display: flex;
             align-items: center;
             justify-content: center;
         }
-
         .message {
             width: 60%;
             height: 100%;
