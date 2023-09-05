@@ -16,7 +16,7 @@ export default defineConfig({
       '/api': {
         target: 'https://www.fastmock.site/mock/935d86475772276cc0f2649e50c82123',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
+        rewrite: (path) => path.replace(/^\/api/, '/api')
       }
     }
   },
