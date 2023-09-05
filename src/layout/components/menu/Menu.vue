@@ -87,6 +87,13 @@ const handleOpen = (key: string, keyPath: string[]) => {
     if (!flag) {
         tableStore.editableTabs.push(route.meta.table)
         tableStore.tableIndex=(String(Number(tableStore.tableIndex)+1))
+    }else{
+        tableStore.editableTabs.forEach(item=>{
+            if(item.path==key){
+                tableStore.tableIndex=item.name
+            }
+        })
+       
     }
 }
 const handleClose = (key: string, keyPath: string[]) => {
