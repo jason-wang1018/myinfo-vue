@@ -81,7 +81,7 @@ const tableStore = useTable()
 
 
 const handleOpen = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
+    // console.log(key, keyPath)
     //判断当前路由是否存在了
     const flag = tableStore.editableTabs.some(item => item.path === key)
     if (!flag) {

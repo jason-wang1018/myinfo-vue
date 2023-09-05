@@ -36,9 +36,12 @@ const layoutStore=useLayout()
         height: 100vh;
     }
     .el-header{
-        height: 100px;
+        height: 95px;
         padding: 0px;
         overflow: hidden !important;
     }
+}
+.el-main{
+    background-color: #f0f2f5;
 }
 </style>
