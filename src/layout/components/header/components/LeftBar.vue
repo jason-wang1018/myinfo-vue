@@ -6,7 +6,7 @@
             </el-icon>
         </div>
         <div>
-            <el-breadcrumb :separator-icon="ArrowRight">
+            <el-breadcrumb :separator-icon="ArrowRight" v-if="LayoutStore.breadcrumbs">
 
                 <template v-for="item in route.meta.nav" key="item.path">
 

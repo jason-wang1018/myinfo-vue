@@ -9,14 +9,16 @@ export default function scroll() {
         setTimeout(()=>{
             // console.log(innerWidth);
             if (innerWidth < 700) {
-        
+                
                 const LayoutStore = useLayout()
+                LayoutStore.breadcrumbs=false
                 LayoutStore.$patch({
                     collapse: true
                 })
             }
             if (innerWidth > 900) {
                 const LayoutStore = useLayout()
+                LayoutStore.breadcrumbs=true
                 LayoutStore.$patch({
                     collapse: false
                 })

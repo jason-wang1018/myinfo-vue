@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 
 const useLayout=defineStore('layout',{
     state:()=>({
+        breadcrumbs:true,
         collapse:false
     }),
     actions:{
