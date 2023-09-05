@@ -1,24 +1,9 @@
 <template>
-    <el-tabs 
-        v-model="editableTabsValue" 
-        type="card" 
-        editable 
-        class="demo-tabs"
-        @edit="handleTabsEdit"
-       
-        >
+    <el-tabs v-model="tableStore.tableIndex" @tab-click="tabClick" type="card" editable class="demo-tabs"
+        @edit="handleTabsEdit">
 
-        <el-tab-pane 
-        v-for="item in editableTabs"  
-        :closable="true"   
-        :key="item.name" 
-        :label="item.title" 
-        :name="item.name">
-
-        <!-- <template #label>
-             <span>哈哈</span>
-        </template> -->
-        
+        <el-tab-pane v-for="item in tableStore.editableTabs" :closable="false" :key="item.name" :label="item.title"
+            :name="item.name">
         </el-tab-pane>
 
     </el-tabs>
@@ -26,52 +11,42 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import type { TabPaneName } from 'element-plus'
+import {useRouter} from  'vue-router'
+const router=useRouter()
 
-let tabIndex = 2
-const editableTabsValue = ref('3')
-const editableTabs = ref([
-    {
-        title: '首页',
-        name: '1',
-    },
-    {
-        title: '仪表盘',
-        name: '2',
-    },
-    {
-        title: '高德地图',
-        name: '3',
-    },
-])
+import useTable from '@s/table'
+const tableStore = useTable()
+
+
+const tabClick = (pane: any) => {
+
+    console.log(pane.props);
+    const matching = tableStore.editableTabs.find(item => item.title == pane.props.label)
+    router.push(matching!.path )
+
+}
 
 const handleTabsEdit = (
     targetName: TabPaneName | undefined,
     action: 'remove' | 'add'
 ) => {
-    if (action === 'add') {
-        const newTabName = `${++tabIndex}`
-        editableTabs.value.push({
-            title: 'New Tab',
-            name: newTabName,
-            // content: 'New Tab content',
-        })
-        editableTabsValue.value = newTabName
-    } else if (action === 'remove') {
-        const tabs = editableTabs.value
-        let activeName = editableTabsValue.value
-        if (activeName === targetName) {
-            tabs.forEach((tab, index) => {
-                if (tab.name === targetName) {
-                    const nextTab = tabs[index + 1] || tabs[index - 1]
-                    if (nextTab) {
-                        activeName = nextTab.name
-                    }
-                }
-            })
-        }
+    if (action === 'remove') {
+        if (!(targetName === '1')) {
+            const index = tableStore.editableTabs.findIndex(item => item.name === targetName)
 
-        editableTabsValue.value = activeName
-        editableTabs.value = tabs.filter((tab) => tab.name !== targetName)
+            // 最后一项 跳转到前一项
+            if(index==tableStore.editableTabs.length-1){
+                router.replace(tableStore.editableTabs[index-1].path)
+            }else{
+                //不是最后一项 显示后一项
+                router.replace(tableStore.editableTabs[index+1].path)
+            }
+
+            tableStore.editableTabs.splice(index, 1)
+
+            tableStore.tableIndex=String(Number(tableStore.tableIndex)-1)
+            
+        }
     }
 }
 </script>

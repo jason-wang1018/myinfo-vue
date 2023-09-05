@@ -15,6 +15,11 @@ const router = createRouter({
           path: '/dashBoard',
           name: 'dashBoard',
           meta:{
+              table:{
+                title:'仪表盘',
+                name:'1',
+                path:'/dashBoard'
+              },
               nav:[
                 {
                   path:'/',
@@ -32,6 +37,11 @@ const router = createRouter({
           path: '/map',
           name: 'map',
           meta:{
+            table:{
+              title:'高德地图',
+              name:'2',
+              path:'/map'
+            },
             nav:[
               {
                 path:'/',

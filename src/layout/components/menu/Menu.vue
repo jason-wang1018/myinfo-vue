@@ -1,7 +1,8 @@
 <template>
     <div class="menuAll">
-        <el-menu  class="el-menu-vertical-demo menuBar" :collapse="collapseStore.collapse" @open="handleOpen"
-            text-color="#fff"  :default-active="route.path"  background-color="#304156" active-text-color="pink" router :collapse-transition="true" @close="handleClose">
+        <el-menu class="el-menu-vertical-demo menuBar" :collapse="collapseStore.collapse" @open="handleOpen"
+            text-color="#fff" :default-active="route.path" background-color="#304156" active-text-color="pink" router
+            :collapse-transition="true" :unique-opened='true' @close="handleClose">
 
 
             <el-menu-item index="/dashBoard">
@@ -63,35 +64,36 @@
   
 <script lang="ts" setup>
 
-import router from '@/router';
 import {
     Menu as IconMenu,
-    Location,
-    Setting,
     Pointer,
     Monitor,
     MapLocation
 } from '@element-plus/icons-vue'
 
-import useLayout from  '@s/layout'
-import {useRoute} from 'vue-router'
+import useLayout from '@s/layout'
+import { useRoute } from 'vue-router'
 const route = useRoute()
-
-
-
-
-const collapseStore=useLayout()
-
-
+const collapseStore = useLayout()
+import useTable from '@s/table'
+const tableStore = useTable()
 
 
 
 const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
+    console.log(key, keyPath)
+    //判断当前路由是否存在了
+    const flag = tableStore.editableTabs.some(item => item.path === key)
+    if (!flag) {
+        tableStore.editableTabs.push(route.meta.table)
+        tableStore.tableIndex=(String(Number(tableStore.tableIndex)+1))
+    }
 }
 const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
+    //   console.log(key, keyPath)
 }
+
+
 
 
 </script>
@@ -109,6 +111,7 @@ const handleClose = (key: string, keyPath: string[]) => {
 .menuAll {
     background-color: #304156;
     height: 100%;
+
     .menuBar {
         background-color: #304156 !important;
 

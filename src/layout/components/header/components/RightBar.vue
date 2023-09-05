@@ -94,7 +94,7 @@ const onClickOutside = () => {
 }
 
 .imgTop {
-    width: 50px;
+    width: 40px;
     border-radius: 50%;
     margin: 0px 5px;
 }
