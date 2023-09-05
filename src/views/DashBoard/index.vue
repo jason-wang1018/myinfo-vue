@@ -1,5 +1,6 @@
 <template>
     <el-row :gutter="10">
+
         <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
             <div class="grid-content ep-bg-purple">
                 <div class="leftBody">
@@ -30,7 +31,8 @@
                 </div>
             </div>
         </el-col>
-        <el-col :xs="24" :sm="12" :md="12" :lg="16" :xl="16">
+
+        <el-col :xs="24" :sm="12" :md="12" :lg="16" :xl="16" class="top">
 
             <div class="grid-content  numberOfUsers  ep-bg-purple-light">
 
@@ -78,40 +80,114 @@
                     </div>
                 </el-col>
 
-            </div>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="24" :lg="16" :xl="12">
-            <div class="grid-content ep-bg-purple" >
-                
+                <div id="pieChart"></div>
+
             </div>
         </el-col>
     </el-row>
-
 </template>
 
 
 <script setup lang="ts">
+
 import {
     Star
 } from '@element-plus/icons-vue'
 
 import { getIndexChartData } from '@a/index'
-import { reactive, ref } from 'vue';
+import { reactive, ref, onMounted } from 'vue';
+import * as echarts from 'echarts';
 
 const state = ref({})
+const pieChart = ref()
+const orderData = reactive({
+    totalOrderAmount: 1111,
+    numberOfOrders: 555,
+    actualIncome: 9666,
+    cashCollection: 7000,
+})
 
-// 获取首页数据
+
+//获取首页数据
 const getIndex = () => {
     getIndexChartData().then((res) => {
         state.value = res.data.data.message
     })
 }
 
-getIndex()
+//定义图标数据
+const initChart = () => {
+    const Chart = echarts.init(document.getElementById('pieChart'));
+    const piePatternImg = new Image();
+    piePatternImg.src = piePatternSrc;
+    const bgPatternImg = new Image();
+    bgPatternImg.src = bgPatternSrc;
+    var option = {
+        backgroundColor: {
+            image: bgPatternImg,
+            repeat: 'repeat'
+        },
+        title: {
+            text: '用户访问数据',
+            textStyle: {
+                color: '#235894'
+            }
+        },
+        tooltip: {},
+        series: [
+            {
+                name: 'pie',
+                type: 'pie',
+                selectedMode: 'single',
+                selectedOffset: 30,
+                clockwise: true,
+                label: {
+                    fontSize: 18,
+                    color: '#235894'
+                },
+                labelLine: {
+                    lineStyle: {
+                        color: '#235894'
+                    }
+                },
+                data: [
+                    { value: 1048, name: 'Search Engine' },
+                    { value: 735, name: 'Direct' },
+                    { value: 580, name: 'Email' },
+                    { value: 484, name: 'Union Ads' },
+                    { value: 300, name: 'Video Ads' }
+                ],
+                itemStyle: {
+                    opacity: 0.7,
+                    color: {
+                        image: piePatternImg,
+                        repeat: 'repeat'
+                    },
+                    borderWidth: 3,
+                    borderColor: '#235894'
+                }
+            }
+        ]
+    };
+    Chart.setOption(option)
+    pieChart.value = Chart
+}
+import { piePatternSrc, bgPatternSrc } from '@/assets/imgs/charts'
 
-setInterval(() => {
+onMounted(() => {
     getIndex()
-}, 2000)
+    setInterval(() => {
+        getIndex()
+    }, 2000)
+
+    //初始化图表
+    initChart()
+    window.addEventListener('resize', () => {
+        pieChart.value.resize();
+    });
+
+
+})
 
 </script>
 
@@ -144,6 +220,10 @@ setInterval(() => {
 
 }
 
+.top {
+    height: 400px;
+}
+
 .el-icon {
     font-size: 20px;
 }
@@ -154,6 +234,7 @@ setInterval(() => {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+
 
     .outerLayer {
         width: 100%;
@@ -197,5 +278,10 @@ setInterval(() => {
     width: 80px;
     margin: 20px 0px;
     border-radius: 50%;
+}
+
+#pieChart {
+    width: 100%;
+    height: 620px;
 }
 </style>

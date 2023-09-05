@@ -18,6 +18,8 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import  globalScroll from '@h/globalScrollEvent'
 globalScroll()
 
+
+
 import App from './App.vue'
 import router from './router'
 
