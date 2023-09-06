@@ -56,6 +56,7 @@ const handleClose = (done: () => void) => {
     ElMessageBox.confirm('你确定关闭对话框?')
         .then(() => {
             emit('updatedVisible', false)
+            ruleForm.value.resetFields()
             done()
         })
         .catch(() => {
