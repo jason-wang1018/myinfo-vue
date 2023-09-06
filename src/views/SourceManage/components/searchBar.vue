@@ -34,12 +34,13 @@
             </el-form>
         </div>
     </div>
-    <DialogPage :dialogVisible="dialogVisible" @updatedVisible="updatedVisible"  />
+    <DialogPage :dialogVisible="dialogVisible" @updatedVisible="updatedVisible" />
 </template>
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import DialogPage from './DialogPage.vue';
+import { ElMessage } from 'element-plus'
 
 const emit = defineEmits(['searchMessage'])
 
@@ -52,8 +53,8 @@ const dialogVisible = ref(false)
 const changeDia = () => {
     dialogVisible.value = !dialogVisible.value
 }
-const updatedVisible=(bool:boolean)=>{
-    dialogVisible.value=bool
+const updatedVisible = (bool: boolean) => {
+    dialogVisible.value = bool
 }
 
 const formInline = ref({
@@ -66,11 +67,37 @@ const formInline = ref({
 
 
 const onSubmit = () => {
-    emit('searchMessage', formInline.value)
+    //判断是否为空
+    if (formInline.value.courseName === '' && formInline.value.lecturerName === '' && formInline.value.courseStatus === '' && formInline.value.courseType === '') {
+        ElMessage({
+            type: 'warning',
+            message: '请输入搜索条件',
+            showClose: true,
+            duration: 2000,
+            onClose: () => {
+            }
+        }
+        )
+    }else{
+        emit('searchMessage', formInline.value)
+    }
 }
 //变单重置
 const resetForm = () => {
-    formName.value.resetFields()
+    if (formInline.value.courseName === '' && formInline.value.lecturerName === '' && formInline.value.courseStatus === '' && formInline.value.courseType === '') {
+        ElMessage({
+            type: 'warning',
+            message: '已经重置了',
+            showClose: true,
+            duration: 2000,
+            onClose: () => {
+            }
+        })
+    }
+    else{
+        formName.value.resetFields()
+    }
+    
 }
 
 
