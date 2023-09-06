@@ -2,7 +2,7 @@
     <div class="topSearchBar">
         <!-- 顶部标题 -->
         <div class="topTitle">
-            <h2>课程管理</h2><el-button type="primary" class="addBtn">+添加课程</el-button>
+            <h2>课程管理</h2><el-button type="primary" class="addBtn" @click="changeDia">+添加课程</el-button>
         </div>
         <div class="searchInput">
             <el-form :inline="true" ref="formName" :model="formInline" class="demo-form-inline">
@@ -14,10 +14,15 @@
                 </el-form-item>
                 <el-form-item label="课程状态" prop="courseStatus">
                     <el-select v-model="formInline.courseStatus" placeholder="" clearable>
-                        <el-option label="下架" value="0" />
-                        <el-option label="上架" value="1" />
-                        <el-option label="审核中" value="2" />
-                        <el-option label="暂停中" value="3" />
+                        <el-option label="下架" value=0 />
+                        <el-option label="上架" value=1 />
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="课程进度" prop="courseType">
+                    <el-select v-model="formInline.courseType" placeholder="" clearable>
+                        <el-option label="完结" value=0 />
+                        <el-option label="未开始" value=2 />
+                        <el-option label="进行中" value=1 />
                     </el-select>
                 </el-form-item>
                 <el-form-item>
@@ -27,29 +32,52 @@
                     <el-button type="info" @click="resetForm">重置</el-button>
                 </el-form-item>
             </el-form>
-
         </div>
     </div>
+    <DialogPage :dialogVisible="dialogVisible" @updatedVisible="updatedVisible"  />
 </template>
 
 <script setup lang="ts">
-import { reactive,ref} from 'vue'
+import { reactive, ref } from 'vue'
+import DialogPage from './DialogPage.vue';
 
-const formName =ref()
+const emit = defineEmits(['searchMessage'])
+
+const formName = ref()
+
+
+//定义对话框显示
+const dialogVisible = ref(false)
+
+const changeDia = () => {
+    dialogVisible.value = !dialogVisible.value
+}
+const updatedVisible=(bool:boolean)=>{
+    dialogVisible.value=bool
+}
 
 const formInline = ref({
-    courseName:'',
+    courseName: '',
     lecturerName: '',
-    courseStatus:''
+    courseStatus: '',
+    courseType: ''
 })
 
+
+
 const onSubmit = () => {
-    console.log('submit!')
+    emit('searchMessage', formInline.value)
 }
 //变单重置
-const resetForm=()=>{
+const resetForm = () => {
     formName.value.resetFields()
 }
+
+
+
+
+
+
 
 </script>
 
@@ -64,15 +92,14 @@ const resetForm=()=>{
     .topTitle {
         display: flex;
         align-items: center;
-        padding:10px 0px ;
-    
-    }
-    .addBtn{
-        margin-left: 10px;
-    }
-    .searchInput{
-        
+        padding: 10px 0px;
 
     }
+
+    .addBtn {
+        margin-left: 10px;
+    }
+
+    .searchInput {}
 }
 </style>

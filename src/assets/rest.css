@@ -30,7 +30,10 @@ a {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 1rem;
+}
+input{
+  outline: none;
+  border: none;
 }
 
 th,
