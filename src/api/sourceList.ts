@@ -15,8 +15,14 @@ const addSourceAPI= (params={}) => {
     return request.post('/addSource',{...params})
 }
 
+//获取学习信息
+const getStudyInfo = (params={}) => {
+    return request.get('/getStudyInfo',{params})
+}
+
 export {
     getSourceList,
     changeSourceStatus,
-    addSourceAPI
+    addSourceAPI,
+    getStudyInfo
 }

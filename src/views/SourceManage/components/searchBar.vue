@@ -127,6 +127,5 @@ const resetForm = () => {
         margin-left: 10px;
     }
 
-    .searchInput {}
 }
 </style>
