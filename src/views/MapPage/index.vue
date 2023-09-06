@@ -1,21 +1,18 @@
 <template>
     <div id="container">
         <div class="mt-1 searchBar">
-            <el-input v-model="searchValue" id="searchInput" placeholder="请输入搜索关键字" class="input-with-select">
-                <template #prepend>
-                    <el-select v-model="SearchCity" placeholder="选择城市" style="width: 105px">
-                        <el-option label="合肥" value="1" />
-                        <el-option label="南京" value="2" />
-                        <el-option label="芜湖" value="3" />
-                    </el-select>
-                </template>
+            <el-input v-model="searchValue" id="searchInput" placeholder="请输入搜索关键字" @input="searchInput" class="input-with-select">
                 <template #append>
                     <el-button :icon="Search" />
                 </template>
             </el-input>
         </div>
+        <el-button type="info" class="changeMap" @click="changeMap">切换地图样式</el-button>
+        <div id="panel" ></div>
     </div>
+   
 </template>
+
 
 <script setup lang="ts">
 import { Search } from '@element-plus/icons-vue'
@@ -25,11 +22,13 @@ import { onMounted, onUnmounted } from 'vue'
 import { ref } from 'vue'
 
 
+let MapIndex:number=0
+
 const map = shallowRef(null);
 
 
 //input框输入的值
-const searchValue = ref('spa')
+const searchValue = ref('')
 //下拉框的值city
 const SearchCity = ref('合肥')
 
@@ -60,9 +59,9 @@ const initMap = () => {
     }).then((AMap) => {
         map.value = new AMap.Map("container", {  //设置地图容器id
             viewMode: "3D",    //是否为3D地图模式
-            zoom: 10,           //初始化地图级别
+            zoom: 13,           //初始化地图级别
             center: [117.17, 31.52],
-            mapStyle: 'amap://styles/macaron',//初始化地图中心点位置
+            mapStyle: 'amap://styles/whitesmoke',//初始化地图中心点位置
         });
         map.value!.addControl(new AMap.Scale())
         map.value!.addControl(new AMap.ToolBar())
@@ -79,12 +78,16 @@ const initMap = () => {
         //     // 查询成功时，result即对应匹配的POI信息
         //     console.log(result);
         // });
-        searchAuto = new AMap.AutoComplete(autoOptions)
-        //
+        // searchAuto = new AMap.AutoComplete(autoOptions)
+        // //
         placeSearch = new AMap.PlaceSearch({
-            map: map.value
+            city:'合肥',
+            map: map.value,
+            pageSize: 6, // 单页显示结果条数
+            pageIndex: 1, // 页码
+            panel: "panel", // 结果列表将在此容器中进行展示。
         }) //构造地点查询类
-        searchAuto.on('select', select)//绑定查询事件
+        // searchAuto.on('select', select)//绑定查询事件
 
     }).catch(e => {
         console.log(e);
@@ -92,16 +95,41 @@ const initMap = () => {
 }
 
 
-//poi搜索 这里面的这个参数 e 就是搜索以后的地址信息 
-const select = (e) => {
-    // placeSearch.setCity(e.poi.adcode) //依据城市ID搜索
-    placeSearch.search(e.poi.name) //关键字查询查询
-    map.value!.setZoom(10, true)
-    searchHere = e.poi
-    // this.$message({
-    //     message: '选择地点:' + this.searchHere.name,
-    //     type: 'success'
-    // });
+// //poi搜索 这里面的这个参数 e 就是搜索以后的地址信息 
+// const select = (e:any) => {
+//     console.log(e);
+    
+//     // placeSearch.setCity(e.poi.adcode) //依据城市ID搜索
+//     // placeSearch.search(e.poi.name) //关键字查询查询
+//     // map.value!.setZoom(13, true)
+//     // searchHere = e.poi
+//     // this.$message({
+//     //     message: '选择地点:' + this.searchHere.name,
+//     //     type: 'success'
+//     // });
+// }
+
+
+
+//定义搜索事件
+const searchInput=()=>{
+    
+
+
+    placeSearch.search(searchValue.value,(status:any, result:any)=>{
+        console.log(status,result);
+        
+    })
+}
+
+
+
+//切换地图样式
+const changeMap=()=>{
+    if(MapIndex==5)  MapIndex=-1
+    MapIndex++
+    const arr=['amap://styles/whitesmoke','amap://styles/normal','amap://styles/fresh','amap://styles/light','amap://styles/giaffiti','amap://styles/macaron']
+    map.value!.setMapStyle(arr[MapIndex]);
 }
 
 
@@ -126,9 +154,16 @@ onUnmounted(() => {
     height: 100%;
     position: relative;
 }
+#panel{
+    position: absolute;
+    z-index: 555555555555555555;
+    top:70px;
+    left: 20px;
+    width: 400px;
+}
 
 .input-with-select {
-    width: 470px;
+    width: 400px;
 }
 
 .searchBar {
@@ -141,5 +176,11 @@ onUnmounted(() => {
     .el-input__inner {
         text-align: center;
     }
+}
+.changeMap{
+    position: absolute;
+    top: 20px;
+    z-index: 99999999999;
+    left: 450px;
 }
 </style>
