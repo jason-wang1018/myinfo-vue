@@ -28,36 +28,17 @@
 
 
 
-            <!-- <el-sub-menu index="1">
+            <el-sub-menu index="/">
                 <template #title>
                     <el-icon>
-                        <location />
+                        <Calendar />
                     </el-icon>
-                    <span>Navigator One</span>
+                    <span>课程管理</span>
                 </template>
-                <el-menu-item-group>
-                    <template #title><span>Group One</span></template>
-                    <el-menu-item index="1-1">item one</el-menu-item>
-                    <el-menu-item index="1-2">item two</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group title="Group Two">
-                    <el-menu-item index="1-3">item three</el-menu-item>
-                </el-menu-item-group>
-                <el-sub-menu index="1-4">
-                    <template #title><span>item four</span></template>
-                    <el-menu-item index="1-4-1">item one</el-menu-item>
-                </el-sub-menu>
-            </el-sub-menu> -->
-
-
-
-
-            <!-- <el-menu-item index="4">
-                <el-icon>
-                    <setting />
-                </el-icon>
-                <template #title>Navigator Four</template>
-            </el-menu-item> -->
+                <el-menu-item index="/courseList">
+                    <template #title>课程列表</template>
+                </el-menu-item>
+            </el-sub-menu>
         </el-menu>
     </div>
 </template>
@@ -68,7 +49,8 @@ import {
     Menu as IconMenu,
     Pointer,
     Monitor,
-    MapLocation
+    MapLocation,
+    Calendar
 } from '@element-plus/icons-vue'
 
 import useLayout from '@s/layout'
@@ -81,19 +63,23 @@ const tableStore = useTable()
 
 
 const handleOpen = (key: string, keyPath: string[]) => {
-    // console.log(key, keyPath)
+    console.log(key, keyPath + '触发了')
+
+    //判断分页点击
+    if (key === '/') return
+
     //判断当前路由是否存在了
     const flag = tableStore.editableTabs.some(item => item.path === key)
     if (!flag) {
         tableStore.editableTabs.push(route.meta.table)
-        tableStore.tableIndex=(String(Number(tableStore.tableIndex)+1))
-    }else{
-        tableStore.editableTabs.forEach(item=>{
-            if(item.path==key){
-                tableStore.tableIndex=item.name
+        tableStore.tableIndex = (String(Number(tableStore.tableIndex) + 1))
+    } else {
+        tableStore.editableTabs.forEach(item => {
+            if (item.path == key) {
+                tableStore.tableIndex = item.name
             }
         })
-       
+
     }
 }
 const handleClose = (key: string, keyPath: string[]) => {

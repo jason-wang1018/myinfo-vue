@@ -54,6 +54,27 @@ const router = createRouter({
         },
           component: () => import('@v/MapPage/index.vue')
         },
+        {
+          path:'/courseList',
+          name:'courseList',
+          meta:{
+            table:{
+              title:'课程列表',
+              name:'3',
+              path:'/courseList'
+            },
+            nav:[
+              {
+                path:'/',
+                name:'首页'
+              },
+              {
+                name:'课程列表'
+              },
+            ]
+          },
+          component: () => import('@v/SourceManage/index.vue')
+        }
       ]
     },
     //大屏
