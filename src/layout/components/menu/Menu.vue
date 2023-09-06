@@ -1,7 +1,7 @@
 <template>
     <div class="menuAll">
-        <el-menu class="el-menu-vertical-demo menuBar" :collapse="collapseStore.collapse" 
-            text-color="#fff" :default-active="route.path" background-color="#304156" active-text-color="pink" router
+        <el-menu class="el-menu-vertical-demo menuBar" :collapse="collapseStore.collapse" text-color="#fff"
+            :default-active="route.path" background-color="#304156" active-text-color="pink" router
             :collapse-transition="true" :unique-opened='true'>
 
 
@@ -34,9 +34,17 @@
                     <span>课程管理</span>
                 </template>
                 <el-menu-item index="/courseList">
-                    <template #title>课程列表</template>
+                    <el-icon>
+                        <TrophyBase />
+                    </el-icon>
+                    <template #title>
+                        课程列表
+                    </template>
                 </el-menu-item>
                 <el-menu-item index="/learnTime">
+                    <el-icon>
+                        <Sunny />
+                    </el-icon>
                     <template #title>学习时长</template>
                 </el-menu-item>
             </el-sub-menu>
@@ -52,7 +60,9 @@ import {
     Pointer,
     Monitor,
     MapLocation,
-    Calendar
+    Calendar,
+    TrophyBase,
+    Sunny
 } from '@element-plus/icons-vue'
 
 import useLayout from '@s/layout'
@@ -72,19 +82,19 @@ const tableStore = useTable()
 //侦听路由的变化
 
 watch(route, (newRoute) => {
-    
-    
+
+
     const flag = tableStore.editableTabs.some(item => item.path === newRoute.fullPath)
     if (!flag) {
-        tableStore.editableTabs.push(newRoute.meta.table) 
+        tableStore.editableTabs.push(newRoute.meta.table)
         //tableIndex时钟为数组的最后一项的name值
-        tableStore.tableIndex = tableStore.editableTabs[tableStore.editableTabs.length - 1].name 
-    }else{
+        tableStore.tableIndex = tableStore.editableTabs[tableStore.editableTabs.length - 1].name
+    } else {
         //已经存在了 只要更改tableIndex
         tableStore.tableIndex = newRoute.meta.table.name
     }
 
-},{
+}, {
     immediate: true
 })
 

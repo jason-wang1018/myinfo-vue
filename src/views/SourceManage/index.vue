@@ -9,35 +9,35 @@
             </el-table-column>
             <el-table-column prop="lecturer" label="讲师" width="120" />
             <el-table-column prop="sourceCate" label="课程分类" show-overflow-tooltip width="180" />
-            <el-table-column prop="price" label="价格" width="140" />
+            <el-table-column prop="price" label="价格" width="160" />
             <el-table-column label="销量/库存" width="160">
                 <template #default="scope">{{ scope.row.salesVolume + '/' + scope.row.inventory }}</template>
             </el-table-column>
-            <el-table-column prop="visits" label="总访问量" width="140">
+            <el-table-column prop="visits" label="总访问量" width="160">
                 <template #default="scope">
                     <el-tag class="ml-2"
                         :type="scope.row.visits < 100 ? 'info' : scope.row.visits > 500 ? 'danger' : 'warning'">{{
                         scope.row.visits }}</el-tag>
                 </template>
             </el-table-column>
-            <el-table-column prop="sourceCate" label="课程状态" width="140">
+            <el-table-column prop="sourceCate" label="课程状态" width="160">
                 <template #default="scope">
                     <button  :disabled="lockBtn"  @click="SourceStatus({ id: scope.row.id, state: scope.row.sourceStatus })"
                         :style="{ width: '60px', backgroundColor: scope.row.sourceStatus === 1 ? 'red' : 'green' }">{{
                             scope.row.sourceStatus === 1 ? '上架' : '下架' }}</button>
                 </template>
             </el-table-column>
-            <el-table-column prop="processStatus" label="进行状态" width="100">
+            <el-table-column prop="processStatus" label="进行状态" width="">
                 <template #default="scope">
                     {{ scope.row.processStatus === 0 ? '完结' : scope.row.processStatus === 1 ? '进行中' : '未开始' }}
                 </template>
             </el-table-column>
-            <el-table-column label="操作">
+            <!-- <el-table-column label="操作">
                 <template #default="scope">
                     <el-button type="primary">Primary</el-button>
                     <el-button type="danger">Danger</el-button>
                 </template>
-            </el-table-column>
+            </el-table-column> -->
         </el-table>
         <div class="oneClickModification">
             <el-button type="primary" :disabled="lockBtn" @click="changeAllStatus({ state: 1 })">一键上架</el-button>
