@@ -74,7 +74,28 @@ const router = createRouter({
             ]
           },
           component: () => import('@v/SourceManage/index.vue')
-        }
+        },
+          {
+            path:'/learnTime',
+            name:'learnTime',
+            meta:{
+              table:{
+                title:'学习时长',
+                name:'4',
+                path:'/learnTime'
+              },
+              nav:[
+                {
+                  path:'/',
+                  name:'首页'
+                },
+                {
+                  name:'学习时长'
+                },
+              ]
+            },
+            component: () => import('@v/LearnTime/index.vue')
+          }
       ]
     },
     //大屏

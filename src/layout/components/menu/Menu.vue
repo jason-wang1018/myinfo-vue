@@ -1,8 +1,8 @@
 <template>
     <div class="menuAll">
-        <el-menu class="el-menu-vertical-demo menuBar" :collapse="collapseStore.collapse" @open="handleOpen"
+        <el-menu class="el-menu-vertical-demo menuBar" :collapse="collapseStore.collapse" 
             text-color="#fff" :default-active="route.path" background-color="#304156" active-text-color="pink" router
-            :collapse-transition="true" :unique-opened='true' @close="handleClose">
+            :collapse-transition="true" :unique-opened='true'>
 
 
             <el-menu-item index="/dashBoard">
@@ -26,8 +26,6 @@
                 <template #title>高德地图</template>
             </el-menu-item>
 
-
-
             <el-sub-menu index="/">
                 <template #title>
                     <el-icon>
@@ -38,11 +36,15 @@
                 <el-menu-item index="/courseList">
                     <template #title>课程列表</template>
                 </el-menu-item>
+                <el-menu-item index="/learnTime">
+                    <template #title>学习时长</template>
+                </el-menu-item>
             </el-sub-menu>
+
         </el-menu>
     </div>
 </template>
-  
+
 <script lang="ts" setup>
 
 import {
@@ -55,6 +57,9 @@ import {
 
 import useLayout from '@s/layout'
 import { useRoute } from 'vue-router'
+import { watch } from 'vue'
+
+
 const route = useRoute()
 const collapseStore = useLayout()
 import useTable from '@s/table'
@@ -62,29 +67,27 @@ const tableStore = useTable()
 
 
 
-const handleOpen = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath + '触发了')
 
-    //判断分页点击
-    if (key === '/') return
 
-    //判断当前路由是否存在了
-    const flag = tableStore.editableTabs.some(item => item.path === key)
+//侦听路由的变化
+
+watch(route, (newRoute) => {
+    
+    
+    const flag = tableStore.editableTabs.some(item => item.path === newRoute.fullPath)
     if (!flag) {
-        tableStore.editableTabs.push(route.meta.table)
-        tableStore.tableIndex = (String(Number(tableStore.tableIndex) + 1))
-    } else {
-        tableStore.editableTabs.forEach(item => {
-            if (item.path == key) {
-                tableStore.tableIndex = item.name
-            }
-        })
-
+        tableStore.editableTabs.push(newRoute.meta.table) 
+        //tableIndex时钟为数组的最后一项的name值
+        tableStore.tableIndex = tableStore.editableTabs[tableStore.editableTabs.length - 1].name 
+    }else{
+        //已经存在了 只要更改tableIndex
+        tableStore.tableIndex = newRoute.meta.table.name
     }
-}
-const handleClose = (key: string, keyPath: string[]) => {
-    //   console.log(key, keyPath)
-}
+
+},{
+    immediate: true
+})
+
 
 
 

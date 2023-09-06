@@ -152,6 +152,8 @@ const getList = (params: {}) => {
         if (res.data.code === 200) {
             tableData.value = res.data.data.list
             total.value = res.data.data.total
+            console.log(tableData.value);
+            
         }
     })
 }
