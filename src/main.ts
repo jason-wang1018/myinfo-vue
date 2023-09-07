@@ -18,6 +18,8 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import  globalScroll from '@h/globalScrollEvent'
 globalScroll()
 
+//datv的全局组件挂载
+import dataV from '@jiaminghi/data-view'
 
 
 import App from './App.vue'
@@ -31,6 +33,8 @@ app.use(ElementPlus, {locale: zhCn,})
 const pinia=createPinia()
 //pinia持久化插件
 pinia.use(piniaPluginPersistedstate)
+
+app.use(dataV)
 
 app.use(pinia)
 
