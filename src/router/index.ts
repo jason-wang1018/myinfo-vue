@@ -14,21 +14,21 @@ const router = createRouter({
         {
           path: '/dashBoard',
           name: 'dashBoard',
-          meta:{
-              table:{
-                title:'仪表盘',
-                name:'1',
-                path:'/dashBoard'
+          meta: {
+            table: {
+              title: '仪表盘',
+              name: '1',
+              path: '/dashBoard'
+            },
+            nav: [
+              {
+                path: '/',
+                name: '首页'
               },
-              nav:[
-                {
-                  path:'/',
-                  name:'首页'
-                },
-                {
-                  name:'仪表盘'
-                },
-              ]
+              {
+                name: '仪表盘'
+              },
+            ]
           },
           component: () => import('@v/DashBoard/index.vue')
         },
@@ -36,66 +36,90 @@ const router = createRouter({
         {
           path: '/map',
           name: 'map',
-          meta:{
-            table:{
-              title:'高德地图',
-              name:'2',
-              path:'/map'
+          meta: {
+            table: {
+              title: '高德地图',
+              name: '2',
+              path: '/map'
             },
-            nav:[
+            nav: [
               {
-                path:'/',
-                name:'首页'
+                path: '/',
+                name: '首页'
               },
               {
-                name:'高德地图'
+                name: '高德地图'
               },
             ]
-        },
+          },
           component: () => import('@v/MapPage/index.vue')
         },
+        //课程列表
         {
-          path:'/courseList',
-          name:'courseList',
-          meta:{
-            table:{
-              title:'课程列表',
-              name:'3',
-              path:'/courseList'
+          path: '/courseList',
+          name: 'courseList',
+          meta: {
+            table: {
+              title: '课程列表',
+              name: '3',
+              path: '/courseList'
             },
-            nav:[
+            nav: [
               {
-                path:'/',
-                name:'首页'
+                path: '/',
+                name: '首页'
               },
               {
-                name:'课程列表'
+                name: '课程列表'
               },
             ]
           },
           component: () => import('@v/SourceManage/index.vue')
         },
-          {
-            path:'/learnTime',
-            name:'learnTime',
-            meta:{
-              table:{
-                title:'学习时长',
-                name:'4',
-                path:'/learnTime'
-              },
-              nav:[
-                {
-                  path:'/',
-                  name:'首页'
-                },
-                {
-                  name:'学习时长'
-                },
-              ]
+        //学习时长
+        {
+          path: '/learnTime',
+          name: 'learnTime',
+          meta: {
+            table: {
+              title: '学习时长',
+              name: '4',
+              path: '/learnTime'
             },
-            component: () => import('@v/LearnTime/index.vue')
-          }
+            nav: [
+              {
+                path: '/',
+                name: '首页'
+              },
+              {
+                name: '学习时长'
+              },
+            ]
+          },
+          component: () => import('@v/LearnTime/index.vue')
+        },
+        //消息发布
+        {
+          path: '/messageRelease',
+          name: 'messageRelease',
+          meta: {
+            table: {
+              title: '消息发布',
+              name: '5',
+              path: '/messageRelease'
+            },
+            nav: [
+              {
+                path: '/',
+                name: '首页'
+              },
+              {
+                name: '课程通知'
+              }
+            ]
+          },
+          component: () => import('@v/MessageRelease/index.vue')
+        }
       ]
     },
     //大屏

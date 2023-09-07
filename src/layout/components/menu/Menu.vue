@@ -47,6 +47,11 @@
                     </el-icon>
                     <template #title>学习时长</template>
                 </el-menu-item>
+                <el-menu-item index="/messageRelease">
+                    <el-icon><AlarmClock /></el-icon>
+                    <template #title>课程通知</template>
+                </el-menu-item>
+
             </el-sub-menu>
 
         </el-menu>
@@ -62,7 +67,8 @@ import {
     MapLocation,
     Calendar,
     TrophyBase,
-    Sunny
+    Sunny,
+    AlarmClock
 } from '@element-plus/icons-vue'
 
 import useLayout from '@s/layout'
