@@ -20,9 +20,16 @@ const getStudyInfo = (params={}) => {
     return request.get('/getStudyInfo',{params})
 }
 
+
+//发布课程信息
+const messageRelease = (params={}) => {
+    return request.post('/messageRelease',{...params})
+}
+
 export {
     getSourceList,
     changeSourceStatus,
     addSourceAPI,
-    getStudyInfo
+    getStudyInfo,
+    messageRelease
 }
