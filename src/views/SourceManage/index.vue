@@ -1,47 +1,44 @@
 <template>
     <div>
         <SearchBar @searchMessage="searchMessage"></SearchBar>
-        <el-table row-key="id" ref="multipleTableRef" :data="tableData" style="width: 100%"
-            @selection-change="handleSelectionChange">
-            <el-table-column type="selection" width="55" />
-            <el-table-column label="课程名称" width="260">
-                <template #default="scope">{{ scope.row.sourceName }}</template>
-            </el-table-column>
-            <el-table-column prop="lecturer" label="讲师" width="120" />
-            <el-table-column prop="sourceCate" label="课程分类" show-overflow-tooltip width="180" />
-            <el-table-column prop="price" label="价格" width="160" />
-            <el-table-column label="销量/库存" width="160">
-                <template #default="scope">{{ scope.row.salesVolume + '/' + scope.row.inventory }}</template>
-            </el-table-column>
-            <el-table-column prop="visits" label="总访问量" width="160">
-                <template #default="scope">
-                    <el-tag class="ml-2"
-                        :type="scope.row.visits < 100 ? 'info' : scope.row.visits > 500 ? 'danger' : 'warning'">{{
-                        scope.row.visits }}</el-tag>
-                </template>
-            </el-table-column>
-            <el-table-column prop="sourceCate" label="课程状态" width="160">
-                <template #default="scope">
-                    <button  :disabled="lockBtn"  @click="SourceStatus({ id: scope.row.id, state: scope.row.sourceStatus })"
-                        :style="{ width: '60px', backgroundColor: scope.row.sourceStatus === 1 ? 'red' : 'green' }">{{
-                            scope.row.sourceStatus === 1 ? '上架' : '下架' }}</button>
-                </template>
-            </el-table-column>
-            <el-table-column prop="processStatus" label="进行状态" width="">
-                <template #default="scope">
-                    {{ scope.row.processStatus === 0 ? '完结' : scope.row.processStatus === 1 ? '进行中' : '未开始' }}
-                </template>
-            </el-table-column>
-            <!-- <el-table-column label="操作">
-                <template #default="scope">
-                    <el-button type="primary">Primary</el-button>
-                    <el-button type="danger">Danger</el-button>
-                </template>
-            </el-table-column> -->
-        </el-table>
+        <div id="printArea">
+            <el-table row-key="id" ref="multipleTableRef" :data="tableData" style="width: 100%"
+                @selection-change="handleSelectionChange">
+                <el-table-column type="selection" />
+                <el-table-column label="课程名称" width="360">
+                    <template #default="scope">{{ scope.row.sourceName }}</template>
+                </el-table-column>
+                <el-table-column prop="lecturer" label="讲师" width="160" />
+                <el-table-column prop="price" label="价格" width="160" />
+                <el-table-column label="销量/库存" width="180">
+                    <template #default="scope">{{ scope.row.salesVolume + '/' + scope.row.inventory }}</template>
+                </el-table-column>
+                <el-table-column prop="visits" label="总访问量" width="180">
+                    <template #default="scope">
+                        <el-tag class="ml-2"
+                            :type="scope.row.visits < 100 ? 'info' : scope.row.visits > 500 ? 'danger' : 'warning'">{{
+                                scope.row.visits }}</el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="sourceCate" label="课程状态" width="180">
+                    <template #default="scope">
+                        <button :disabled="lockBtn"
+                            @click="SourceStatus({ id: scope.row.id, state: scope.row.sourceStatus })"
+                            :style="{ width: '60px', backgroundColor: scope.row.sourceStatus === 1 ? 'red' : 'green' }">{{
+                                scope.row.sourceStatus === 1 ? '上架' : '下架' }}</button>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="processStatus" label="进行状态" width="">
+                    <template #default="scope">
+                        {{ scope.row.processStatus === 0 ? '完结' : scope.row.processStatus === 1 ? '进行中' : '未开始' }}
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
         <div class="oneClickModification">
             <el-button type="primary" :disabled="lockBtn" @click="changeAllStatus({ state: 1 })">一键上架</el-button>
             <el-button type="success" :disabled="lockBtn" @click="changeAllStatus({ state: 0 })">一键下架</el-button>
+            <el-button type="warning" @click="printDetail">打印成pdf</el-button>
         </div>
         <el-pagination background layout="prev, pager, next, jumper, sizes" :total="total" class="pagination popper-class"
             v-model:page-size="pageSize" v-model:current-page="page" :page-sizes="[10, 20, 30, 40]"
@@ -54,6 +51,8 @@ import { onMounted, ref } from 'vue';
 import SearchBar from './components/searchBar.vue'
 import { getSourceList, changeSourceStatus } from '@a/sourceList'
 import { ElMessage } from 'element-plus'
+import print from 'print-js'
+
 
 interface User {
     id: number
@@ -153,7 +152,7 @@ const getList = (params: {}) => {
             tableData.value = res.data.data.list
             total.value = res.data.data.total
             console.log(tableData.value);
-            
+
         }
     })
 }
@@ -167,6 +166,18 @@ onMounted(() => {
 })
 
 
+
+//定义打印方法
+const printDetail = () => {
+    print({
+        printable: "printArea", // 'printFrom', // 标签元素id
+        type: "html",
+        targetStyles: ['*'],
+        scanStyles: false,
+        documentTitle: '课程管理清单',
+        header: '<h2 style>课程管理清单</h2>',
+    })
+}
 </script>
 
 <style lang="less" scoped>
