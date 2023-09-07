@@ -28,7 +28,7 @@
             <div>
                 <el-table :data="tableData" border :default-sort="{ prop: 'date', order: 'descending' }" @sort-change=""
                     style="width: 100%">
-                    <el-table-column prop="id" label="用户ID" sortable width="180" />
+                    <el-table-column prop="id" label="用户ID" width="180" />
                     <el-table-column prop="nickName" label="用户昵称" width="180" />
                     <el-table-column prop="phone" label="手机号" />
                     <el-table-column prop="videTime" label="视屏时长" sortable :formatter="formatter1" />
@@ -76,7 +76,6 @@ const total: any = ref()
 const getData = async () => {
     const res = await getStudyInfo(searchDate.value)
     tableData.value = res.data.data.studyInfo
-    console.log(tableData.value);
     total.value = res.data.data.total
     lock.value = false
     formName.value.resetFields()

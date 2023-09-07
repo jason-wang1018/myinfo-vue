@@ -26,10 +26,10 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="info" @click="onSubmit">搜索</el-button>
+                    <el-button type="info" :disabled="lock"  @click="onSubmit">搜索</el-button>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="info" @click="resetForm">重置</el-button>
+                    <el-button type="info" :disabled="lock" @click="resetForm">重置</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -46,6 +46,7 @@ const emit = defineEmits(['searchMessage'])
 
 const formName = ref()
 
+const lock=ref(false)
 
 //定义对话框显示
 const dialogVisible = ref(false)
@@ -67,6 +68,7 @@ const formInline = ref({
 
 
 const onSubmit = () => {
+    lock.value = true
     //判断是否为空
     if (formInline.value.courseName === '' && formInline.value.lecturerName === '' && formInline.value.courseStatus === '' && formInline.value.courseType === '') {
         ElMessage({
@@ -75,6 +77,7 @@ const onSubmit = () => {
             showClose: true,
             duration: 2000,
             onClose: () => {
+                lock.value = false
             }
         }
         )
@@ -84,6 +87,7 @@ const onSubmit = () => {
 }
 //变单重置
 const resetForm = () => {
+    lock.value = true
     if (formInline.value.courseName === '' && formInline.value.lecturerName === '' && formInline.value.courseStatus === '' && formInline.value.courseType === '') {
         ElMessage({
             type: 'warning',
@@ -91,6 +95,7 @@ const resetForm = () => {
             showClose: true,
             duration: 2000,
             onClose: () => {
+                lock.value = false
             }
         })
     }
