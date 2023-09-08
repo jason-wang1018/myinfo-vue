@@ -18,6 +18,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import  globalScroll from '@h/globalScrollEvent'
 globalScroll()
 
+import 'element-plus/theme-chalk/dark/css-vars.css'
 
 
 
