@@ -57,6 +57,7 @@
             color: rgb(247, 132, 151);
         
         }
+        
         .input{
             display: flex;
             flex-direction: column;
