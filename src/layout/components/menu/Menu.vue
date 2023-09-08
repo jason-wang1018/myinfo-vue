@@ -29,7 +29,7 @@
                 <template #title>高德地图</template>
             </el-menu-item>
 
-            <el-sub-menu index="/">
+            <el-sub-menu index="/source">
                 <template #title>
                     <el-icon>
                         <Calendar />
@@ -59,6 +59,23 @@
 
             </el-sub-menu>
 
+            <el-sub-menu index="/user">
+                <template #title>
+                    <el-icon><User /></el-icon>
+                    <span>讲师管理</span>
+                </template>
+                <el-menu-item index="/teachList">
+                    <el-icon><Coin /></el-icon>
+                    <template #title>
+                        讲师列表
+                    </template>
+                </el-menu-item>
+                <el-menu-item index="/teachOrder">
+                    <el-icon><Sell /></el-icon>
+                    <template #title>讲师订单</template>
+                </el-menu-item>
+            </el-sub-menu>
+
         </el-menu>
     </div>
 </template>
@@ -73,7 +90,10 @@ import {
     Calendar,
     TrophyBase,
     Sunny,
-    AlarmClock
+    AlarmClock,
+    User,
+    Sell,
+    Coin
 } from '@element-plus/icons-vue'
 
 import useLayout from '@s/layout'

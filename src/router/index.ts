@@ -104,7 +104,7 @@ const router = createRouter({
           name: 'messageRelease',
           meta: {
             table: {
-              title: '消息发布',
+              title: '课程通知',
               name: '5',
               path: '/messageRelease'
             },
@@ -119,6 +119,54 @@ const router = createRouter({
             ]
           },
           component: () => import('@v/MessageRelease/index.vue')
+        }
+        , {
+
+          path: '/teachList',
+          name: 'teachList',
+          meta: {
+            table: {
+              title: '讲师列表',
+              name: '6',
+              path: '/teachList'
+            },
+            nav: [
+              {
+                path: '/',
+                name: '首页'
+              },
+              {
+                name: '讲师列表'
+              }
+            ]
+          },
+          component: () => import('@v/TeachList/index.vue')
+
+        }
+        , {
+
+
+          path: '/teachOrder',
+          name: 'teachOrder',
+          meta: {
+            table: {
+              title: '讲师订单',
+              name: '7',
+              path: '/teachOrder'
+            },
+            nav: [
+              {
+                path: '/',
+                name: '首页'
+              },
+              {
+                name: '讲师订单'
+              }
+            ]
+          },
+          component: () => import('@v/TeachOrder/index.vue')
+
+
         }
       ]
     },
