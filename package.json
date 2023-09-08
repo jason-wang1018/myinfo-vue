@@ -25,6 +25,7 @@
     "print-js": "^1.6.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4",
+    "vue3-scale-box": "^0.1.9",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

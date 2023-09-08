@@ -1,98 +1,96 @@
 <template>
-    <div class="largeScreenMainBody">
-        <!-- flex布局实现大屏可视化效果 -->
-        <!-- 头部标题 -->
-        <div class="topBody">
-            课程管理可视化平台
-        </div>
-        <div class="leftBody">
-            <div style="width: 100%;height:100%">
-                <h4>周访问量</h4>
-                <div id="leftTop">
+    <ScaleBox :width="1920" :height="1080" bgc="white" :delay="100" :isFlat="false">
+        <div class="ec-demo" id="ec-demo">
+            <div class="largeScreenMainBody">
+                <!-- flex布局实现大屏可视化效果 -->
+                <!-- 头部标题 -->
+                <div class="topBody">
+                    课程管理可视化平台
                 </div>
-                <div id="leftBottom">
-                    <h4>用户在线状态</h4>
-                    <table>
-                        <thead>
-                            <th>序号</th>
-                            <th>用户</th>
-                            <th>时间</th>
-                            <th>状态</th>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(item, index) in tableData" :key="index">
-                                <td>{{ item.id }}</td>
-                                <td>{{ item.userName }}</td>
-                                <td>{{ item.data }}</td>
-                                <td>{{ item.state==1? "在线":"下线"}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="leftBody">
+                    <div style="width: 100%;height:100%">
+                        <h4>周访问量</h4>
+                        <div id="leftTop">
+                        </div>
+                        <div id="leftBottom">
+                            <h4>用户在线状态</h4>
+                            <table>
+                                <thead>
+                                    <th>序号</th>
+                                    <th>用户</th>
+                                    <th>时间</th>
+                                    <th>状态</th>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(item, index) in tableData" :key="index">
+                                        <td>{{ item.id }}</td>
+                                        <td>{{ item.userName }}</td>
+                                        <td>{{ item.data }}</td>
+                                        <td>{{ item.state == 1 ? "在线" : "下线" }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="centerBody">
+                    <div id="centerTop">
+
+                    </div>
+                    <div id="centerBottom">
+                        <div>
+                            <img src="./1.gif" alt="">
+                            <div class="right">
+                                <div>用户访问数量:</div>
+                                <div>200点击每分钟</div>
+                            </div>
+
+                        </div>
+                        <div>
+                            <img src="./1.gif" alt="">
+                            <div class="right">
+                                <div>用户访问数量:</div>
+                                <div>200点击每分钟</div>
+                            </div>
+
+                        </div>
+                        <div>
+                            <img src="./1.gif" alt="">
+                            <div class="right">
+                                <div>用户访问数量:</div>
+                                <div>200点击每分钟</div>
+                            </div>
+                        </div>
+                        <div>
+                            <img src="./1.gif" alt="">
+                            <div class="right">
+                                <div>用户访问数量:</div>
+                                <div>200点击每分钟</div>
+                            </div>
+                        </div>
+                        <div>
+                            <img src="./1.gif" alt="">
+                            <div class="right">
+                                <div>用户访问数量:</div>
+                                <div>200点击每分钟</div>
+                            </div>
+                        </div>
+                        <div>
+                            <img src="./1.gif" alt="">
+                            <div class="right">
+                                <div>用户访问数量:</div>
+                                <div>200点击每分钟</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rightBody">
+                    <div id="rightTop"></div>
+                    <div id="rightBottom"></div>
                 </div>
             </div>
         </div>
-        <div class="centerBody">
-            <div id="centerTop">
-
-            </div>
-            <div id="centerBottom">
-                <div>
-                    <img src="./1.gif" alt="">
-                    <div class="right">
-                        <div>用户访问数量:</div>
-                        <div>200点击每分钟</div>
-                    </div>
-
-                </div>
-                <div>
-                    <img src="./1.gif" alt="">
-                    <div class="right">
-                        <div>用户访问数量:</div>
-                        <div>200点击每分钟</div>
-                    </div>
-
-                </div>
-                <div>
-                    <img src="./1.gif" alt="">
-                    <div class="right">
-                        <div>用户访问数量:</div>
-                        <div>200点击每分钟</div>
-                    </div>
-
-                </div>
-                <div>
-                    <img src="./1.gif" alt="">
-                    <div class="right">
-                        <div>用户访问数量:</div>
-                        <div>200点击每分钟</div>
-                    </div>
-
-                </div>
-                <div>
-                    <img src="./1.gif" alt="">
-                    <div class="right">
-                        <div>用户访问数量:</div>
-                        <div>200点击每分钟</div>
-                    </div>
-
-                </div>
-                <div>
-                    <img src="./1.gif" alt="">
-                    <div class="right">
-                        <div>用户访问数量:</div>
-                        <div>200点击每分钟</div>
-                    </div>
-
-                </div>
-
-
-            </div>
-        </div>
-        <div class="rightBody">
-            <div id="rightTop"></div>
-            <div id="rightBottom"></div>
-        </div>
-    </div>
+    </ScaleBox>
 </template>
 
 <script setup lang="ts">
@@ -102,6 +100,7 @@ import { getUserTable } from "@a/bigScreen"
 import { Ref } from 'vue';
 import chinaJSON from './china.json'
 import { useRouter } from 'vue-router';
+import ScaleBox from "vue3-scale-box";
 const router = useRouter()
 
 const leftBody = ref()
@@ -559,6 +558,7 @@ tbody tr:nth-child(2n+1) {
             backdrop-filter: blur(35px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 0 80px rgba(0, 0, 0, 0.25);
+
             &>img {
                 width: 80px;
             }
@@ -589,8 +589,8 @@ tbody tr:nth-child(2n+1) {
         width: 100%;
         margin-top: 30px;
         height: 45%;
-        -webkit-box-shadow: inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, 5px -8px 8px -5px rgba(0,0,0,0.53); 
-        box-shadow: inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, 5px -8px 8px -5px rgba(0,0,0,0.53);
+        -webkit-box-shadow: inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, 5px -8px 8px -5px rgba(0, 0, 0, 0.53);
+        box-shadow: inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, 5px -8px 8px -5px rgba(0, 0, 0, 0.53);
     }
 }
 </style>

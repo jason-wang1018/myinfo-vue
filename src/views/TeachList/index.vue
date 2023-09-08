@@ -2,16 +2,21 @@
     <div class="learnTimeBody">
 
         <div class="header">
-            <div class="screen">筛选</div>
+            <div class="screen">讲师搜索</div>
             <div class="searchBar">
-                <el-form :inline="true" ref="formName"  :model="searchDate" class="demo-form-inline">
-                    <el-form-item label="用户信息" prop="userMessage">
+                <el-form :inline="true" ref="formName"  label-position label-width="90px" :model="searchDate" class="demo-form-inline">
+                    <el-form-item label="讲师信息" prop="userMessage">
                         <el-input v-model="searchDate.userMessage" placeholder="ID/手机号" clearable />
                     </el-form-item>
-                    <el-form-item label="用户ID" prop="userID">
+                    <el-form-item label="讲师ID" prop="userID">
                         <el-input v-model="searchDate.userID" placeholder="" clearable />
                     </el-form-item>
-
+                    <el-form-item label="讲师状态" prop="userID">
+                        <el-input v-model="searchDate.userID" placeholder="" clearable />
+                    </el-form-item>
+                    <el-form-item label="讲师类型" prop="userID">
+                        <el-input v-model="searchDate.userID" placeholder="" clearable />
+                    </el-form-item>
                     <el-form-item>
                         <el-button type="info" :disabled="lock" @click="onSubmit">搜索</el-button>
                     </el-form-item>
@@ -23,7 +28,7 @@
         </div>
         <div class="subjectInformation">
             <div>
-                <h3 style="margin:10px">总数:{{ total }}</h3>
+                <h3 style="margin:10px">讲师列表:{{ total }}</h3>
             </div>
             <div>
                 <el-table :data="tableData" border :default-sort="{ prop: 'date', order: 'descending' }" @sort-change=""
@@ -186,11 +191,12 @@ const formatter3 = (row: any, column: any) => {
     }
 
     .searchBar {
-        height: 100px;
+        height: auto;
         background-color: white;
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 20px 20px;
 
         .el-input {
             width: 300px;
