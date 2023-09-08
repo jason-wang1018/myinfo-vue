@@ -19,7 +19,7 @@ import  globalScroll from '@h/globalScrollEvent'
 globalScroll()
 
 import 'element-plus/theme-chalk/dark/css-vars.css'
-
+import '@u/yinghua.js'
 
 
 import App from './App.vue'
