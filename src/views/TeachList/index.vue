@@ -11,35 +11,49 @@
                     <el-form-item label="讲师ID" prop="userID">
                         <el-input v-model="searchDate.userID" placeholder="" clearable />
                     </el-form-item>
-                    <el-form-item label="讲师状态" prop="userID">
-                        <el-input v-model="searchDate.userID" placeholder="" clearable />
+
+                    <el-form-item label="讲师类型" prop="courseType">
+                        <el-select v-model="searchDate.courseType" placeholder="" clearable>
+                            <el-option label="实习" value=0 />
+                            <el-option label="兼职" value=1 />
+                            <el-option label="全职" value=2 />
+                        </el-select>
                     </el-form-item>
-                    <el-form-item label="讲师类型" prop="userID">
-                        <el-input v-model="searchDate.userID" placeholder="" clearable />
-                    </el-form-item>
+
                     <el-form-item>
                         <el-button type="info" :disabled="lock" @click="onSubmit">搜索</el-button>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="info" :disabled="lock" @click="resetForm">重置</el-button>
                     </el-form-item>
+
                 </el-form>
             </div>
         </div>
         <div class="subjectInformation">
             <div>
-                <h3 style="margin:10px">讲师列表:{{ total }}</h3>
+                <h3 style="margin:10px">讲师列表:{{ total }}人</h3>
             </div>
             <div>
                 <el-table :data="tableData" border :default-sort="{ prop: 'date', order: 'descending' }" @sort-change=""
                     style="width: 100%">
-                    <el-table-column prop="id" label="用户ID" width="180" />
-                    <el-table-column prop="nickName" label="用户昵称" width="180" />
-                    <el-table-column prop="phone" label="手机号" />
-                    <el-table-column prop="videTime" label="视屏时长" sortable :formatter="formatter1" />
-                    <el-table-column prop="textTime" label="图文时长" sortable :formatter="formatter2" />
-                    <el-table-column prop="textTime" label="总时长" sortable :formatter="formatter3" />
+                    <el-table-column prop="id" label="讲师编号" width="180" />
+                    <el-table-column prop="name" label="讲师名称" width="180" />
 
+                    <el-table-column prop="image" label="讲师头像" width="180" >
+                        <template #default="scope">
+                            <img :src="scope.row.image" alt="" style="width: 50px;height: 50px"/>
+                        </template>
+                    </el-table-column>
+
+                    <el-table-column prop="phone" label="待提现佣金/总佣金" >
+                        <template #default="scope">
+                            {{ scope.row.toBeWithdrawn+'/'+scope.row.totalAmount}}
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="phone" label="手机号" />
+                    <el-table-column prop="teachCate" label="讲师类型" sortable :formatter="formatter1" />
+                toBeWithdrawn totalAmount
                 </el-table>
             </div>
             <div class="pagination">
@@ -53,7 +67,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { getStudyInfo } from "@a/sourceList";
+import { getTeacherList } from "@a/teacher";
 import { ElMessage } from "element-plus"
 
 
@@ -63,7 +77,8 @@ const lock = ref(false)
 //定义搜索数据
 const searchDate = ref({
     userMessage: '',
-    userID: ''
+    userID: '',
+    courseType:'',
 })
 
 //定义分页数据
@@ -79,7 +94,7 @@ const total: any = ref()
 
 //定义获取数据
 const getData = async () => {
-    const res = await getStudyInfo(searchDate.value)
+    const res = await getTeacherList(searchDate.value)
     tableData.value = res.data.data.studyInfo
     total.value = res.data.data.total
     lock.value = false
@@ -93,7 +108,7 @@ onMounted(() => {
 const onSubmit = () => {
     lock.value = true
     //判断是否为空
-    if (searchDate.value.userMessage === '' && searchDate.value.userID === '') {
+    if (searchDate.value.userMessage === '' && searchDate.value.userID === '' && searchDate.value.courseType === '') {
         ElMessage({
             type: 'warning',
             message: '请输入搜索条件',
@@ -112,7 +127,7 @@ const onSubmit = () => {
 //表单重置
 const resetForm = () => {
     lock.value = true
-    if (searchDate.value.userMessage === '' && searchDate.value.userID === '') {
+    if (searchDate.value.userMessage === '' && searchDate.value.userID === '' && searchDate.value.courseType === '') {
         ElMessage({
             type: 'warning',
             message: '为空不需要重置',
@@ -133,33 +148,16 @@ const resetForm = () => {
 
 //格式化数据
 const formatter1 = (row: any, column: any) => {
+    switch(row.teachCate){
+        case 0:
+            return '兼职'
+        case 1:
+            return '全职'
+        case 2:
+            return '实习'
+    }
+}
 
-    //单位为min
-    //计算小时
-    let hour = Math.floor(row.videTime / 60)
-    //计算分钟
-    let min = row.videTime % 60
-    return `${hour}小时${min}分钟`
-}
-//格式化数据
-const formatter2 = (row: any, column: any) => {
-
-    //单位为min
-    //计算小时
-    let hour = Math.floor(row.videTime / 60)
-    //计算分钟
-    let min = row.videTime % 60
-    return `${hour}小时${min}分钟`
-}
-//格式化数据
-const formatter3 = (row: any, column: any) => {
-    //单位为min
-    //计算小时
-    let hour = Math.floor((row.videTime+row.textTime) / 60)
-    //计算分钟
-    let min =( row.videTime+row.textTime) % 60
-    return `${hour}小时${min}分钟`
-}
 
 
 </script>
