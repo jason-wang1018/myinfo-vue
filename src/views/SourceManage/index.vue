@@ -39,6 +39,14 @@
             <el-button type="primary" :disabled="lockBtn" @click="changeAllStatus({ state: 1 })">一键上架</el-button>
             <el-button type="success" :disabled="lockBtn" @click="changeAllStatus({ state: 0 })">一键下架</el-button>
             <el-button type="warning" @click="printDetail">打印成pdf</el-button>
+            <el-button type="danger" @click="exportFile">导出excel模板</el-button>
+
+            <div class="batch">
+                <el-upload action="#" accept=".xlsx,.xls" :before-upload="blockFileUpload">
+                    <el-button type="info">批量导入excel</el-button>
+                </el-upload>
+            </div>
+
         </div>
         <el-pagination background layout="prev, pager, next, jumper, sizes" :total="total" class="pagination popper-class"
             v-model:page-size="pageSize" v-model:current-page="page" :page-sizes="[10, 20, 30, 40]"
@@ -49,9 +57,11 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import SearchBar from './components/searchBar.vue'
-import { getSourceList, changeSourceStatus } from '@a/sourceList'
+import { getSourceList, changeSourceStatus, batchUploadFiles } from '@a/sourceList'
 import { ElMessage } from 'element-plus'
 import print from 'print-js'
+import FileSaver from "file-saver";
+import { utils, read, writeFileXLSX } from "xlsx";
 
 
 interface User {
@@ -151,8 +161,6 @@ const getList = (params: {}) => {
         if (res.data.code === 200) {
             tableData.value = res.data.data.list
             total.value = res.data.data.total
-            console.log(tableData.value);
-
         }
     })
 }
@@ -178,6 +186,57 @@ const printDetail = () => {
         header: '<h2 style>课程管理清单</h2>',
     })
 }
+
+
+//文件导出
+const exportFile = () => {
+
+    //导出文件的字段名
+    const tableTemplate = [
+        {
+            课程名称: '课程名',
+            讲师: "名字",
+            价格: "价格",
+            销量: "数字",
+            库存: '数量',
+            课程状态: "1上架/0下架",
+            进行状态: "0完结/1进行中/2未开始",
+        }
+
+    ]
+    const ws = utils.json_to_sheet(tableTemplate);
+    const wb = utils.book_new();
+    utils.book_append_sheet(wb, ws, "Data");
+    writeFileXLSX(wb, "课程列表管理导入模板.xlsx");
+}
+
+
+//文件导入
+const blockFileUpload = (file: any) => {
+    const fd = new FileReader()
+    fd.readAsArrayBuffer(file)
+    fd.onload = () => {
+        const wb = read(fd.result);
+        const data = utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+        const newData = data.map(item => {
+            return {
+                sourceName: item.课程名称,
+                lecturer: item.讲师,
+                price: item.价格,
+                processStatus: item.课程状态,
+                inventory: item.库存,
+                salesVolume: item.销量,
+            }
+        })
+        batchUploadFiles(newData[0]).then(res => {
+            if (res.data.code === 200) {
+                ElMessage.success('批量上传成功')
+            }
+        })
+        return false
+    }
+}
+
 </script>
 
 <style lang="less" scoped>
@@ -186,6 +245,11 @@ const printDetail = () => {
 }
 
 .oneClickModification {
-    margin: 10px 10px;
+    margin: 20px 10px 10px 10px;
+    display: flex;
+
+    .batch {
+        margin: 0px 10px;
+    }
 }
 </style>

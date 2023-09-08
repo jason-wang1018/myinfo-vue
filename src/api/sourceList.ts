@@ -26,10 +26,18 @@ const messageRelease = (params={}) => {
     return request.post('/messageRelease',{...params})
 }
 
+//批量上传文件
+const batchUploadFiles = (params={}) => {
+
+    return request.post('/batchUploadFiles',{...params})
+
+}
+
 export {
     getSourceList,
     changeSourceStatus,
     addSourceAPI,
     getStudyInfo,
-    messageRelease
+    messageRelease,
+    batchUploadFiles
 }

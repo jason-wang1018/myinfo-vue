@@ -4,7 +4,10 @@
             :default-active="route.path" background-color="#304156" active-text-color="pink" router
             :collapse-transition="true" :unique-opened='true'>
 
-
+            <div class="logoArea">
+                <img src="@/assets/logo.png" alt="" :style="{width:collapseStore.collapse? '64px':'64px'}">
+                <div v-if="!collapseStore.collapse">课程管理系统</div>
+            </div>
             <el-menu-item index="/dashBoard">
                 <el-icon>
                     <Pointer />
@@ -48,7 +51,9 @@
                     <template #title>学习时长</template>
                 </el-menu-item>
                 <el-menu-item index="/messageRelease">
-                    <el-icon><AlarmClock /></el-icon>
+                    <el-icon>
+                        <AlarmClock />
+                    </el-icon>
                     <template #title>课程通知</template>
                 </el-menu-item>
 
@@ -134,6 +139,18 @@ watch(route, (newRoute) => {
 
         .el-menu--inline {
             background-color: #304156;
+        }
+    }
+    .logoArea{
+        display: flex;
+        align-items: center;
+        height: 80px;
+        width: 100%;
+     
+        &>div{
+            color: #cc98b6;
+            font-size: 21px;
+            font-weight: 600;
         }
     }
 }
