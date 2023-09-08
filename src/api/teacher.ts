@@ -5,8 +5,17 @@ const getTeacherList = (data: any) => {
     return  request.get('/teachList',{data})
 }
 
-
+//获取订单列表
+const getOrderList = (data: any) => {
+    return  request.get('/orderList',{data})
+}
+//删除订单
+const deleteOrder = (data: any) => {
+    return  request.post('/deleteOrder',{data})
+}
 
 export {
-    getTeacherList
+    getTeacherList,
+    getOrderList,
+    deleteOrder
 }
