@@ -1,14 +1,10 @@
 <template>
-    <el-autocomplete class="search" v-model="state" :fetch-suggestions="querySearch" popper-class="my-autocomplete"
-        placeholder="请搜索菜单" @select="handleSelect">
-        <template #suffix>
-            <el-icon class="el-input__icon" @click="handleIconClick">
-                <edit />
-            </el-icon>
-        </template>
+    <el-autocomplete class="search" v-model="state" clearable :fetch-suggestions="querySearch"
+        popper-class="my-autocomplete" placeholder="请搜索菜单" @select="handleSelect">
+
         <template #default="{ item }">
             <div class="value">{{ item.value }}</div>
-            <span class="link">{{ item.link }}</span>
+            <!-- <span class="link">{{ item.link }}</span> -->
         </template>
     </el-autocomplete>
 </template>
@@ -17,6 +13,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { Edit } from '@element-plus/icons-vue'
+import { routes } from '@r/index'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
 
 interface LinkItem {
     value: string
@@ -27,9 +27,7 @@ const state = ref('')
 const links = ref<LinkItem[]>([])
 
 const querySearch = (queryString: string, cb) => {
-    const results = queryString
-        ? links.value.filter(createFilter(queryString))
-        : links.value
+    const results = queryString ? links.value.filter(createFilter(queryString)) : links.value
     // call callback function to return suggestion objects
     cb(results)
 }
@@ -40,28 +38,35 @@ const createFilter = (queryString) => {
         )
     }
 }
+
+
+const searchList = routes[0].children.map(item => {
+    return { value: item.meta.table.title }
+})
+
+
+
+
 const loadAll = () => {
-    return [
-        { value: '', link: 'https://github.com/vuejs/vue' },
-        { value: 'element', link: 'https://github.com/ElemeFE/element' },
-        { value: 'cooking', link: 'https://github.com/ElemeFE/cooking' },
-        { value: 'mint-ui', link: 'https://github.com/ElemeFE/mint-ui' },
-        { value: 'vuex', link: 'https://github.com/vuejs/vuex' },
-        { value: 'vue-router', link: 'https://github.com/vuejs/vue-router' },
-        { value: 'babel', link: 'https://github.com/babel/babel' },
-    ]
+    return searchList
 }
-const handleSelect = (item: LinkItem) => {
-    console.log(item)
+const handleSelect = (obj: LinkItem) => {
+    //遍历获取
+    routes[0].children.forEach(element => {
+
+        if (element.meta.table.title === obj.value) {
+            router.push(element.meta.table.path)
+
+        }
+    });
 }
 
-const handleIconClick = (ev: Event) => {
-    console.log(ev)
-}
+
 
 onMounted(() => {
     links.value = loadAll()
 })
+
 
 
 </script>
@@ -86,11 +91,13 @@ onMounted(() => {
 .my-autocomplete li .highlighted .addr {
     color: #ddd;
 }
-.el-autocomplete{
+
+.el-autocomplete {
     position: fixed !important;
     top: 200px;
 }
-.search{
+
+.search {
     position: fixed;
     top: 200px;
 }
