@@ -1,5 +1,5 @@
 <template>
-    <ScaleBox :width="1920" :height="1080" bgc="white" :delay="100" :isFlat="false">
+    <ScaleBox :width="1920" :height="1080" bgc="#0a1222" :delay="100" :isFlat="false">
         <div class="ec-demo" id="ec-demo">
             <div class="largeScreenMainBody">
                 <!-- flex布局实现大屏可视化效果 -->
