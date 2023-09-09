@@ -7,9 +7,7 @@ export const getToken=() => localStorage.getItem('token')
 
 //退出清除用户信息
 export const clearUserInfo=()=>{
-    localStorage.removeItem('token')
-    localStorage.removeItem('userInfo')
-    localStorage.removeItem('id')
-    localStorage.removeItem('role')
+    localStorage.clear()
+
 }
 

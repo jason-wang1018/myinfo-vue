@@ -53,14 +53,14 @@
 
         <el-dropdown :hide-on-click="false">
             <span class="el-dropdown-link avatarTop">
-                <img class="imgTop" src="https://image-1gi.pages.dev/file/adcab20d47f56e1a2aa30.jpg" alt="">
-                <span> admin</span>
+                <img class="imgTop" :src="userInfoStore.avatar" alt="">
+                <span>{{userInfoStore.username}}</span>
                 <el-icon class="el-icon--right"><arrow-down /></el-icon>
             </span>
             <template #dropdown>
                 <el-dropdown-menu>
                     <el-dropdown-item>个人中心</el-dropdown-item>
-                    <el-dropdown-item>退出登陆</el-dropdown-item>
+                    <el-dropdown-item @click="clearUserInfo()">退出登陆</el-dropdown-item>
                 </el-dropdown-menu>
             </template>
         </el-dropdown>
@@ -82,6 +82,10 @@ import { ref, unref, watch } from 'vue'
 import { ClickOutside as vClickOutside } from 'element-plus'
 const buttonRef = ref()
 const popoverRef = ref()
+import userUserInfo from '@/stores/user'
+const  userInfoStore = userUserInfo()
+import {clearUserInfo} from '@u/user'
+
 const onClickOutside = () => {
     unref(popoverRef).popperRef?.delayHide?.()
 }
