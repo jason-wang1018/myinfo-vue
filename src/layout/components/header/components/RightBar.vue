@@ -60,7 +60,7 @@
             <template #dropdown>
                 <el-dropdown-menu>
                     <el-dropdown-item>个人中心</el-dropdown-item>
-                    <el-dropdown-item @click="clearUserInfo()">退出登陆</el-dropdown-item>
+                    <el-dropdown-item @click="clearUserInfoAll">退出登陆</el-dropdown-item>
                 </el-dropdown-menu>
             </template>
         </el-dropdown>
@@ -85,6 +85,13 @@ const popoverRef = ref()
 import userUserInfo from '@/stores/user'
 const  userInfoStore = userUserInfo()
 import {clearUserInfo} from '@u/user'
+import {useRouter} from 'vue-router'
+const router = useRouter()
+
+const clearUserInfoAll = () => {
+    clearUserInfo()
+    router.go(0)
+}
 
 const onClickOutside = () => {
     unref(popoverRef).popperRef?.delayHide?.()

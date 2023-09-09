@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Layout from '@/layout/index.vue'
+import { isLogin, getToken } from '@/utils/user'
 
-export const routes= [
+export const routes = [
   {
     path: '/',
     name: 'layout',
@@ -196,6 +197,30 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_APP_BASE_URL),
   routes
 })
+
+router.beforeEach((to, from, next) => {
+
+  //注册页和登陆页放行
+  if (to.path === '/login' || to.path === '/register') {
+    next()
+  } else {
+    //判断登陆了
+    if (isLogin()) {
+      next()
+    } else {
+      console.log('未登录');
+      //登陆失效从哪个页面来的
+      next({
+        path: '/login',
+        query: {
+          redirect: to.path
+        }
+      })
+    }
+  }
+}
+)
+
 
 export default router
 

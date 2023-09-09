@@ -12,10 +12,10 @@
                     </div>
                     <div class="rememberInput">
                         <label for="remember">
-                            <input id="remember" type="checkbox">记住用户名和密码
+                            <input id="remember" type="checkbox" v-model="rememberSelect">记住用户名和密码
                         </label>
                     </div>
-                    <button class="go" @click="gotoIndex"  :disabled="lock">登陆</button>
+                    <button class="go" @click="gotoIndex" :disabled="lock">登陆</button>
                 </div>
             </div>
         </div>
@@ -23,16 +23,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive} from 'vue'
+import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { login } from '@a/login'
 import { ElMessage } from 'element-plus'
 import userUserInfo from '@s/user'
-const  UserInfoStore = userUserInfo()
-const  Router=useRouter()
+import Cookies from 'js-cookie'
+const UserInfoStore = userUserInfo()
+const Router = useRouter()
 
-const lock=ref<boolean>(false)
-
+const lock = ref<boolean>(false)
 
 const btn = ref<HTMLButtonElement>()
 
@@ -61,14 +61,14 @@ const loginMsg = reactive({
 })
 
 const gotoIndex = () => {
-    lock.value=true
+    lock.value = true
     if (loginMsg.username === '' || loginMsg.password == '' || loginMsg.code === '') {
         ElMessage({
-            type:'error',
-            message:'请填写完整信息',
-            duration:1000,
-            onClose:()=>{
-                lock.value=false
+            type: 'error',
+            message: '请填写完整信息',
+            duration: 1000,
+            onClose: () => {
+                lock.value = false
             }
         })
     } else {
@@ -81,49 +81,68 @@ const gotoIndex = () => {
             loginMsg.id = 2
         } else {
             ElMessage({
-            type:'error',
-            message:'用户不存在,请检查是否写错!!1',
-            duration:1000,
-            onClose:()=>{
-                lock.value=false
-            }
-        })
+                type: 'error',
+                message: '用户不存在,请检查是否写错!!1',
+                duration: 1000,
+                onClose: () => {
+                    lock.value = false
+                }
+            })
             return
         }
         login({ id: loginMsg.id }).then(res => {
             if (res.data.code == 200) {
 
-                const { avatar } =res.data.data
+                const { avatar } = res.data.data
                 localStorage.setItem('avatar', avatar)
-                UserInfoStore.avatar=avatar
+                UserInfoStore.avatar = avatar
 
-                const { role } =res.data.data
+                const { role } = res.data.data
                 localStorage.setItem('role', role)
-                UserInfoStore.role=role
+                UserInfoStore.role = role
 
-                const { token } =res.data.data
+                const { token } = res.data.data
                 localStorage.setItem('token', token)
-                UserInfoStore.token=token
+                UserInfoStore.token = token
 
-                const {router} =res.data.data
-                localStorage.setItem('router',JSON.stringify(router))
-                UserInfoStore.router=JSON.parse(localStorage.getItem('router')!)
+                const { router } = res.data.data
+                localStorage.setItem('router', JSON.stringify(router))
+                UserInfoStore.router = JSON.parse(localStorage.getItem('router')!)
 
                 const { username } = res.data.data
                 localStorage.setItem('username', username)
-                UserInfoStore.username=username
+                UserInfoStore.username = username
+
+                if (rememberSelect.value === true) {
+                    //登陆成功讲密码和用户名存起来
+                    Cookies.set('username', loginMsg.username, { expires: 1 })
+                    Cookies.set('password', loginMsg.password, { expires: 1 })
+                } else {
+                    Cookies.remove('username')
+                    Cookies.remove('password')
+                }
+
                 ElMessage({
-                    type:'success',
-                    duration:2000,
-                    message:'您已经登录成功啦!!',
-                    onClose:()=>{
-                        lock.value=false
+                    type: 'success',
+                    duration: 2000,
+                    message: '您已经登录成功啦!!',
+                    onClose: () => {
+                        lock.value = false
                         Router.replace('/')
                     }
                 })
             }
         })
     }
+}
+
+const rememberSelect = ref(false)
+
+//初次进来判断是否有了用户名和密码 自动回显
+if (Cookies.get('username') && Cookies.get('password')) {
+    loginMsg.username = Cookies.get('username')
+    loginMsg.password = Cookies.get('password')
+    rememberSelect.value = true
 }
 
 </script>
@@ -135,7 +154,7 @@ const gotoIndex = () => {
     align-items: center;
     height: 100vh;
     background-color: #a29bfe;
-    background-image: url();
+    background-image: url(../../assets/imgs/indexbc.jpg);
     background-size: 100% 100%;
 
     .Login {
