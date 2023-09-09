@@ -7,8 +7,8 @@ import { clearUserInfo, getToken } from '@u/user'
 import loading from '@u/loading/index.js'
 
 const request = axios.create({
-    //'https://www.fastmock.site/mock/935d86475772276cc0f2649e50c82123'
-    baseURL: import.meta.env.VITE_BASE_URL,
+    //'https://www.fastmock.site/mock/935d86475772276cc0f2649e50c82123' //import.meta.env.VITE_BASE_URL
+    baseURL: 'https://www.fastmock.site/mock/935d86475772276cc0f2649e50c82123/api',
     timeout: 5000
 })
 
