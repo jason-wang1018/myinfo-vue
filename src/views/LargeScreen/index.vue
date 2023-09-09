@@ -515,6 +515,7 @@ tbody tr:nth-child(2n+1) {
         color: #bc2e1e;
         font-size: 40px;
         font-family: '楷体';
+        overflow: hidden;
         text-shadow: 0 1px 0px #378ab4, 1px 0 0px #5dabcd, 1px 2px 1px #378ab4, 2px 1px 1px #5dabcd, 2px 3px 2px #378ab4, 3px 2px 2px #5dabcd, 3px 4px 2px #378ab4, 4px 3px 3px #5dabcd, 4px 5px 3px #378ab4, 5px 4px 2px #5dabcd, 5px 6px 2px #378ab4, 6px 5px 2px #5dabcd, 6px 7px 1px #378ab4, 7px 6px 1px #5dabcd, 7px 8px 0px #378ab4, 8px 7px 0px #5dabcd;
     }
 
@@ -526,6 +527,7 @@ tbody tr:nth-child(2n+1) {
 
     #leftBottom {
         overflow: hidden;
+        height: 50%;
     }
 
     .centerBody {
@@ -554,8 +556,13 @@ tbody tr:nth-child(2n+1) {
             height: 40%;
             margin-top: 10px;
             border: 1px solid #11182f;
-            color: rgb(160, 153, 153);
-            backdrop-filter: blur(35px);
+            background: linear-gradient(to right bottom,
+                    rgba(255, 255, 255, .7),
+                    rgba(255, 255, 255, .5),
+                    rgba(247, 242, 242, 0.4));
+            /* 使背景模糊化 */
+            backdrop-filter: blur(8px);
+
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 0 80px rgba(0, 0, 0, 0.25);
 
@@ -565,6 +572,8 @@ tbody tr:nth-child(2n+1) {
 
             &>.right {
                 padding: 20px;
+
+
             }
         }
     }
