@@ -56,9 +56,6 @@ const handleTabsEdit = (
                     //不是最后一页 并且当前的下标不是当前 直接删掉就好不用跳转
                     tableStore.editableTabs.splice(index, 1)
                 }
-
-
-
             }
             // tableStore.tableIndex=String(Number(tableStore.tableIndex)-1) 
         }

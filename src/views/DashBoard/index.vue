@@ -1,6 +1,5 @@
 <template>
     <el-row :gutter="10">
-
         <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
             <div class="grid-content ep-bg-purple">
                 <div class="leftBody">

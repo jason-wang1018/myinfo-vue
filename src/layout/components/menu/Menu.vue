@@ -5,101 +5,50 @@
             :collapse-transition="true" :unique-opened='true'>
 
             <div class="logoArea">
-                <img src="@/assets/logo.png" alt="" :style="{width:collapseStore.collapse? '64px':'64px'}">
+                <img src="@/assets/logo.png" alt="" :style="{ width: collapseStore.collapse ? '64px' : '64px' }">
                 <div v-if="!collapseStore.collapse">课程管理系统</div>
             </div>
-            
-            <el-menu-item index="/dashBoard">
-                <el-icon>
-                    <Pointer />
-                </el-icon>
-                <template #title>仪表盘</template>
-            </el-menu-item>
 
-            <el-menu-item index="/largeScreen">
-                <el-icon>
-                    <Monitor />
-                </el-icon>
-                <template #title>大屏可视化</template>
-            </el-menu-item>
-
-            <el-menu-item index="/map">
-                <el-icon>
-                    <MapLocation />
-                </el-icon>
-                <template #title>高德地图</template>
-            </el-menu-item>
-
-            <el-sub-menu index="/source">
-                <template #title>
-                    <el-icon>
-                        <Calendar />
-                    </el-icon>
-                    <span>课程管理</span>
+            <template v-for="item in menuStore.menu" key="item.path">
+                <template v-if="!item.children">
+                    <el-menu-item :index="item.path">
+                        <el-icon>
+                            <component :is="item.icon"></component>
+                        </el-icon>
+                        <template #title>{{ item.title }}</template>
+                    </el-menu-item>
                 </template>
-                <el-menu-item index="/courseList">
-                    <el-icon>
-                        <TrophyBase />
-                    </el-icon>
-                    <template #title>
-                        课程列表
-                    </template>
-                </el-menu-item>
-                <el-menu-item index="/learnTime">
-                    <el-icon>
-                        <Sunny />
-                    </el-icon>
-                    <template #title>学习时长</template>
-                </el-menu-item>
-                <el-menu-item index="/messageRelease">
-                    <el-icon>
-                        <AlarmClock />
-                    </el-icon>
-                    <template #title>课程通知</template>
-                </el-menu-item>
-
-            </el-sub-menu>
-
-            <el-sub-menu index="/user">
-                <template #title>
-                    <el-icon><User /></el-icon>
-                    <span>讲师管理</span>
+                <template v-else>
+                    <el-sub-menu :index="item.path">
+                        <template #title>
+                            <el-icon>
+                                <component :is="item.icon"></component>
+                            </el-icon>
+                            <span>{{ item.title }}</span>
+                        </template>
+                        <template v-for="child in item.children" :key="child.path">
+                            <el-menu-item :index="child.path">
+                                <el-icon>
+                                    <component :is="child.icon"></component>
+                                </el-icon>
+                                <template #title>
+                                    {{ child.title }}
+                                </template>
+                            </el-menu-item>
+                        </template>
+                    </el-sub-menu>
                 </template>
-                <el-menu-item index="/teachList">
-                    <el-icon><Coin /></el-icon>
-                    <template #title>
-                        讲师列表
-                    </template>
-                </el-menu-item>
-                <el-menu-item index="/teachOrder">
-                    <el-icon><Sell /></el-icon>
-                    <template #title>讲师订单</template>
-                </el-menu-item>
-            </el-sub-menu>
-
+            </template>
         </el-menu>
     </div>
 </template>
 
 <script lang="ts" setup>
-
-import {
-    Menu as IconMenu,
-    Pointer,
-    Monitor,
-    MapLocation,
-    Calendar,
-    TrophyBase,
-    Sunny,
-    AlarmClock,
-    User,
-    Sell,
-    Coin
-} from '@element-plus/icons-vue'
-
 import useLayout from '@s/layout'
 import { useRoute } from 'vue-router'
 import { watch } from 'vue'
+import useDynamicRouting from '@s/routers'
+const menuStore = useDynamicRouting()
 
 
 const route = useRoute()
@@ -162,13 +111,14 @@ watch(route, (newRoute) => {
             background-color: #304156;
         }
     }
-    .logoArea{
+
+    .logoArea {
         display: flex;
         align-items: center;
         height: 80px;
         width: 100%;
-     
-        &>div{
+
+        &>div {
             color: #cc98b6;
             font-size: 21px;
             font-weight: 600;

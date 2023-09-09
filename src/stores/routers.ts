@@ -1,17 +1,30 @@
 import { defineStore } from "pinia";
+import  routers from "@r/index";
 
-const  useDynamicRouting =defineStore('DynamicRouting',{
-    state:()=>({
-        menu:[]
+const rewriteComponent = (name:any) => {
+    return () => import(`../views/${name}/index.vue`)
+}
+
+const useDynamicRouting = defineStore('dynamicRouting', {
+    state: () => ({
+        menu: [],
     }),
-    actions:{
-
+    actions: {
         //设置菜单
-        setMenu(menu:any){
-
+        setMenu(menu: any) {
+            this.menu = menu;
+        },
+        setRouter(router: any) {
+            let newRouters = router.map(item => {
+                item.component= rewriteComponent(item.component)
+                return item
+            })
+            newRouters.forEach(element => {
+                routers.addRoute('layout',element)
+            });
         }
     },
-    persist:true
+    persist: true
 })
 
 export default useDynamicRouting;

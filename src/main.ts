@@ -17,6 +17,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 //全局滚动事件
 import  globalScroll from '@h/globalScrollEvent'
 globalScroll()
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import '@u/yinghua.js'
@@ -26,6 +27,10 @@ import App from './App.vue'
 import router from './router'
 
 const app = createApp(App)
+
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component)
+  }
 
 
 app.use(ElementPlus, {locale: zhCn,})

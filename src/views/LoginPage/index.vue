@@ -107,10 +107,6 @@ const gotoIndex = () => {
                 localStorage.setItem('token', token)
                 UserInfoStore.token = token
 
-                const { router } = res.data.data
-                localStorage.setItem('router', JSON.stringify(router))
-                UserInfoStore.router = JSON.parse(localStorage.getItem('router')!)
-
                 const { username } = res.data.data
                 localStorage.setItem('username', username)
                 UserInfoStore.username = username
@@ -125,7 +121,13 @@ const gotoIndex = () => {
                 }
 
                 //动态路由 处理菜单栏和路由
-                // routerStore.menu
+                const { router } = res.data.data
+                const { menu } = res.data.data
+
+
+                //提交给仓库做菜单和动态添加路由
+                routerStore.setMenu(menu)
+                routerStore.setRouter(router)
 
                 ElMessage({
                     type: 'success',
