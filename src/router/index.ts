@@ -14,6 +14,7 @@ export const routes = [
         path: '/dashBoard',
         name: 'dashBoard',
         meta: {
+          title:'仪表盘',
           table: {
             title: '仪表盘',
             name: '1',
@@ -36,6 +37,7 @@ export const routes = [
         path: '/map',
         name: 'map',
         meta: {
+          title:'高德地图',
           table: {
             title: '高德地图',
             name: '2',
@@ -58,6 +60,7 @@ export const routes = [
         path: '/courseList',
         name: 'courseList',
         meta: {
+          title:'课程列表',
           table: {
             title: '课程列表',
             name: '3',
@@ -80,6 +83,7 @@ export const routes = [
         path: '/learnTime',
         name: 'learnTime',
         meta: {
+          title:'学习时长',
           table: {
             title: '学习时长',
             name: '4',
@@ -102,6 +106,7 @@ export const routes = [
         path: '/messageRelease',
         name: 'messageRelease',
         meta: {
+          title:'课程通知',
           table: {
             title: '课程通知',
             name: '5',
@@ -124,6 +129,7 @@ export const routes = [
         path: '/teachList',
         name: 'teachList',
         meta: {
+          title:'讲师列表',
           table: {
             title: '讲师列表',
             name: '6',
@@ -146,6 +152,7 @@ export const routes = [
         path: '/teachOrder',
         name: 'teachOrder',
         meta: {
+          title:'讲师订单',
           table: {
             title: '讲师订单',
             name: '7',
@@ -162,8 +169,6 @@ export const routes = [
           ]
         },
         component: () => import('@v/TeachOrder/index.vue')
-
-
       }
     ]
   },
@@ -171,18 +176,27 @@ export const routes = [
   {
     path: '/largeScreen',
     name: 'largeScreen',
+    meta:{
+      title:'大屏可视化'
+    },
     component: () => import('@v/LargeScreen/index.vue')
   },
   //登陆
   {
     path: '/login',
     name: 'login',
+    meta:{
+      title:'登陆页'
+    },
     component: () => import('@v/LoginPage/index.vue')
   },
   // 404
   {
     path: '/:pathMath(.*)',
     name: 'notfound',
+    meta:{
+      title:'404页面'
+    },
     component: () => import('@v/NotFound/index.vue')
   },
   //注册页
@@ -221,6 +235,10 @@ router.beforeEach((to, from, next) => {
 }
 )
 
+router.afterEach((to, from) => {
+  // 设置标题
+  document.title = to.meta.title as string
+})
 
 export default router
 

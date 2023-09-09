@@ -31,6 +31,8 @@ import userUserInfo from '@s/user'
 import Cookies from 'js-cookie'
 const UserInfoStore = userUserInfo()
 const Router = useRouter()
+import useDynamicRouting  from '@s/routers'
+const  routerStore = useDynamicRouting()
 
 const lock = ref<boolean>(false)
 
@@ -121,6 +123,9 @@ const gotoIndex = () => {
                     Cookies.remove('username')
                     Cookies.remove('password')
                 }
+
+                //动态路由 处理菜单栏和路由
+                // routerStore.menu
 
                 ElMessage({
                     type: 'success',

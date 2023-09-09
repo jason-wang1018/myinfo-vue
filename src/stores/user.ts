@@ -9,8 +9,8 @@ const  userUserInfo =defineStore('UserInfo',{
         router:[]
     }),
     actions:{
-        
     },
+
     persist:true
 })
 

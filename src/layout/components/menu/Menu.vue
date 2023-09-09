@@ -8,6 +8,7 @@
                 <img src="@/assets/logo.png" alt="" :style="{width:collapseStore.collapse? '64px':'64px'}">
                 <div v-if="!collapseStore.collapse">课程管理系统</div>
             </div>
+            
             <el-menu-item index="/dashBoard">
                 <el-icon>
                     <Pointer />
