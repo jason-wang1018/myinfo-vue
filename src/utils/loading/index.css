@@ -23,7 +23,7 @@
   position: absolute;
   width: 0px;
   height: 0px;
-  border: 60px solid #cf6767;
+  border: 40px solid #cf6767;
   border-top: none;
   border-left-color: transparent;
   z-index: 200;
@@ -34,7 +34,7 @@
   position: absolute;
   width: 0px;
   height: 0px;
-  border: 60px solid #4e4bd3;
+  border: 40px solid #4e4bd3;
   border-top: none;
   border-left-color: transparent;
   transform-origin: right bottom ;
@@ -46,7 +46,7 @@
   position: absolute;
   width: 0px;
   height: 0px;
-  border: 60px solid #c0df38;
+  border: 40px solid #c0df38;
   border-top: none;
   border-left-color: transparent;
   transform-origin: right bottom ;
@@ -58,7 +58,7 @@
   position: absolute;
   width: 0px;
   height: 0px;
-  border: 60px solid #e99246;
+  border: 40px solid #e99246;
   border-top: none;
   border-left-color: transparent;
   transform-origin: right bottom ;

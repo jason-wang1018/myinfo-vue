@@ -94,7 +94,7 @@ import {
 } from '@element-plus/icons-vue'
 
 import { getIndexChartData } from '@a/index'
-import { reactive, ref, onMounted } from 'vue';
+import { reactive, ref, onMounted,} from 'vue';
 import * as echarts from 'echarts';
 
 const state = ref({})
@@ -173,9 +173,10 @@ const initChart = () => {
 }
 import { piePatternSrc, bgPatternSrc } from '@/assets/imgs/charts'
 
+let time=1
 onMounted(() => {
     getIndex()
-    setInterval(() => {
+    time=setInterval(() => {
         getIndex()
     }, 2000)
 
@@ -185,8 +186,8 @@ onMounted(() => {
         pieChart.value.resize();
     });
 
-
 })
+
 
 </script>
 

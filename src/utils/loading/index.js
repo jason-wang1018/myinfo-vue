@@ -1,4 +1,4 @@
-import '@u/loading/index.less'
+import '@u/loading/index.css'
 
 function globalLoading() {
     this.mask = null;
