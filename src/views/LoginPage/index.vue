@@ -127,6 +127,8 @@ const gotoIndex = () => {
 
                 //提交给仓库做菜单和动态添加路由
                 routerStore.setMenu(menu)
+                //缓存路由
+                localStorage.setItem('router', JSON.stringify(router))
                 routerStore.setRouter(router)
 
                 ElMessage({

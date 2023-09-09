@@ -41,6 +41,11 @@ pinia.use(piniaPluginPersistedstate)
 
 
 app.use(pinia)
+import  useDynamicRouting from '@s/routers'
+const   routerStore=useDynamicRouting()
+//判断首页 没有子路由 刷新添加路由
+const flag=localStorage.getItem('router')
+if(flag) routerStore.setRouter(JSON.parse(flag))
 
 app.use(router)
 
