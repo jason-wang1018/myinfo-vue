@@ -38,50 +38,13 @@
 
                     </div>
                     <div id="centerBottom">
-                        <div>
-                            <img src="./1.gif" alt="">
-                            <div class="right">
-                                <div>用户访问数量:</div>
-                                <div>200点击每分钟</div>
+                            <div  v-for="item in flexData" >
+                                <img style="width: 80px;" src="./1.png" alt="">
+                                <div class="right">
+                                    <div>{{item.title}}</div>
+                                    <div>{{ item.num +item.sub }}</div>
+                                </div>
                             </div>
-
-                        </div>
-                        <div>
-                            <img src="./1.gif" alt="">
-                            <div class="right">
-                                <div>用户访问数量:</div>
-                                <div>200点击每分钟</div>
-                            </div>
-
-                        </div>
-                        <div>
-                            <img src="./1.gif" alt="">
-                            <div class="right">
-                                <div>用户访问数量:</div>
-                                <div>200点击每分钟</div>
-                            </div>
-                        </div>
-                        <div>
-                            <img src="./1.gif" alt="">
-                            <div class="right">
-                                <div>用户访问数量:</div>
-                                <div>200点击每分钟</div>
-                            </div>
-                        </div>
-                        <div>
-                            <img src="./1.gif" alt="">
-                            <div class="right">
-                                <div>用户访问数量:</div>
-                                <div>200点击每分钟</div>
-                            </div>
-                        </div>
-                        <div>
-                            <img src="./1.gif" alt="">
-                            <div class="right">
-                                <div>用户访问数量:</div>
-                                <div>200点击每分钟</div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="rightBody">
@@ -96,7 +59,7 @@
 <script setup lang="ts">
 import * as echarts from 'echarts'
 import { onMounted, ref } from 'vue'
-import { getUserTable } from "@a/bigScreen"
+import { getUserTable, getScreenData } from "@a/bigScreen"
 import { Ref } from 'vue';
 import chinaJSON from './china.json'
 import { useRouter } from 'vue-router';
@@ -436,16 +399,28 @@ onMounted(() => {
     initRoseChart()
     drawChina()
     initRadarChart()
+    getBigScreenData()
     window.addEventListener('resize', () => {
         browseChart.value.resize()
         chinaMap.value.resize()
         roseChart.value.resize()
         radarChart.value.resize()
     })
+    setInterval(() => {
+        getUserTableData()
+        getBigScreenData()
+    }, 1500)
 })
 
 
-
+const flexData = ref()
+const getBigScreenData=()=>{
+    getScreenData().then(res=>{
+        if(res.data.code==200){
+            flexData.value=res.data.data
+        }
+    })
+}
 
 
 </script>
@@ -543,7 +518,7 @@ tbody tr:nth-child(2n+1) {
 
     }
 
-    #centerBottom {
+    #centerBottom{
         height: 25%;
         width: 100%;
         display: flex;
@@ -557,14 +532,16 @@ tbody tr:nth-child(2n+1) {
             margin-top: 10px;
             border: 1px solid #11182f;
             background: linear-gradient(to right bottom,
-                    rgba(255, 255, 255, .7),
-                    rgba(255, 255, 255, .5),
-                    rgba(247, 242, 242, 0.4));
+                    rgba(255, 255, 255, .2),
+                    rgba(240, 237, 237, 0.2),
+                    rgba(255, 255, 255, 0.2));
             /* 使背景模糊化 */
             backdrop-filter: blur(8px);
-
+            box-shadow: 5px 5px 5px lightgrey;
+            color: #a5a5a7;
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 0 80px rgba(0, 0, 0, 0.25);
+            border-radius: 5px;
 
             &>img {
                 width: 80px;

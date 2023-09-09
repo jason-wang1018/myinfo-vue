@@ -1,14 +1,14 @@
 <template>
     <div class="rightTop">
         <el-dropdown>
-            <span class="el-dropdown-link"><el-icon class="edit">
+            <span class="el-dropdown-link"><el-icon class="edit" @click="edit">
                     <EditPen />
                 </el-icon></span>
             <template #dropdown>
                 <el-dropdown-menu>
-                    <el-dropdown-item>默认</el-dropdown-item>
-                    <el-dropdown-item>小型</el-dropdown-item>
-                    <el-dropdown-item>大型</el-dropdown-item>
+                    <el-dropdown-item @click="edit('default')">默认</el-dropdown-item>
+                    <el-dropdown-item @click="edit('small')">小型</el-dropdown-item>
+                    <el-dropdown-item @click="edit('big')">大型</el-dropdown-item>
                 </el-dropdown-menu>
             </template>
         </el-dropdown>
@@ -139,6 +139,19 @@ import GlobalSearch from './searchGlobal.vue'
 
 const  changeGlobalSearch=()=>{
     openGlobalSearch.value=!openGlobalSearch.value
+}
+
+const edit=(font:string)=>{
+    if(font=='default'){
+        //设置body字体
+        document.body.style.fontSize='16px'
+    }else if(font=='small'){
+        //设置body字体
+        document.body.style.fontSize='14px'
+    }else if(font=='bog'){
+        //设置body字体
+        document.body.style.fontSize='18px'
+    }
 }
 
 </script>

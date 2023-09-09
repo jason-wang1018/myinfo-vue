@@ -162,9 +162,7 @@ if (Cookies.get('username') && Cookies.get('password')) {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #a29bfe;
-    background-image: url(../../assets/imgs/indexbc.jpg);
-    background-size: 100% 100%;
+    background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
 
     .Login {
         width: 30vw;
