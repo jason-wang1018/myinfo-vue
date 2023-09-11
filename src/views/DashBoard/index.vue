@@ -88,17 +88,19 @@
 
 
 <script setup lang="ts">
-
+import { ElNotification } from 'element-plus'
+import axios from 'axios';
 import {
     Star
 } from '@element-plus/icons-vue'
 
 import { getIndexChartData } from '@a/index'
-import { reactive, ref, onMounted,} from 'vue';
+import { reactive, ref, onMounted, } from 'vue';
 import * as echarts from 'echarts';
 
 const state = ref({})
 const pieChart = ref()
+const open = ref(false)
 const orderData = reactive({
     totalOrderAmount: 1111,
     numberOfOrders: 555,
@@ -173,10 +175,10 @@ const initChart = () => {
 }
 import { piePatternSrc, bgPatternSrc } from '@/assets/imgs/charts'
 
-let time=1
+let time = 1
 onMounted(() => {
     getIndex()
-    time=setInterval(() => {
+    time = setInterval(() => {
         getIndex()
     }, 2000)
 
@@ -185,6 +187,18 @@ onMounted(() => {
     window.addEventListener('resize', () => {
         pieChart.value.resize();
     });
+
+    axios.get("https://api.vvhan.com/api/en").then(res => {
+        console.log(res.data.data.zh)
+        const name = localStorage.getItem('username')
+        ElNotification({
+            title: `欢迎${name}登陆成功!!`,
+            dangerouslyUseHTMLString: true,
+            message: `<h4>${res.data.data.zh}</h4>`,
+            type: 'success',
+        })
+    })
+
 
 })
 
@@ -251,6 +265,7 @@ onMounted(() => {
             align-items: center;
             justify-content: center;
         }
+
         .message {
             width: 60%;
             height: 100%;
