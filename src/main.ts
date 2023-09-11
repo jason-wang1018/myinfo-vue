@@ -21,6 +21,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import '@u/yinghua.js'
+import vueEsign from 'vue-esign'
 
 
 import App from './App.vue'
@@ -46,6 +47,8 @@ const   routerStore=useDynamicRouting()
 //判断首页 没有子路由 刷新添加路由
 const flag=localStorage.getItem('router')
 if(flag) routerStore.setRouter(JSON.parse(flag))
+
+app.use(vueEsign)
 
 app.use(router)
 

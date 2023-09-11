@@ -200,12 +200,6 @@ export const routes = [
     },
     component: () => import('@v/NotFound/index.vue')
   },
-  //注册页
-  {
-    path: '/register',
-    name: 'register',
-    component: () => import('@v/RegisterPage/index.vue')
-  },
   {
     path:'/handwrittenSignature',
     name:'handwrittenSignature',

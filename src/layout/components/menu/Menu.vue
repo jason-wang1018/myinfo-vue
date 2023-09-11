@@ -67,7 +67,7 @@ const tableStore = useTable()
 
 watch(route, (newRoute) => {
 
-
+    if(!newRoute.meta.table) return
     const flag = tableStore.editableTabs.some(item => item.path === newRoute.fullPath)
     if (!flag) {
         tableStore.editableTabs.push(newRoute.meta.table)

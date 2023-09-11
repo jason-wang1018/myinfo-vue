@@ -2,7 +2,7 @@
     <el-tabs v-model="tableStore.tableIndex" @tab-click="tabClick" type="card" editable class="demo-tabs"
         @edit="handleTabsEdit">
 
-        <el-tab-pane v-for="item in tableStore.editableTabs" :closable="false" :key="item.name" :label="item.title"
+        <el-tab-pane v-for="item in tableStore.editableTabs"  :closable="false" :key="item.name" :label="item.title"
             :name="item.name">
         </el-tab-pane>
 
@@ -19,7 +19,6 @@ const tableStore = useTable()
 
 
 const tabClick = (pane: any) => {
-
     const matching = tableStore.editableTabs.find(item => item.title == pane.props.label)
     router.push(matching!.path)
 
@@ -62,6 +61,7 @@ const handleTabsEdit = (
     }
 }
 </script>
+
 <style>
 .demo-tabs>.el-tabs__content {
     color: #6b778c;
