@@ -14,11 +14,11 @@
 </template>
 
 
-<script setup lang="ts">
+<script setup lang="ts" name="Map">
 import { Search } from '@element-plus/icons-vue'
 import AMapLoader from '@amap/amap-jsapi-loader';
 import { shallowRef } from '@vue/reactivity'
-import { onMounted, onUnmounted } from 'vue'
+import { onActivated, onMounted, onUnmounted,onDeactivated} from 'vue'
 import { ref } from 'vue'
 
 
@@ -117,7 +117,7 @@ const searchInput=()=>{
 
 
     placeSearch.search(searchValue.value,(status:any, result:any)=>{
-        console.log(status,result);
+       
         
     })
 }
@@ -143,8 +143,16 @@ onUnmounted(() => {
     map.value!.destroy()
 })
 
+onActivated(()=>{
+    console.log('地图激活');
+    
+})
+onDeactivated(()=>{
+    console.log('地图失活');
+})
 
 </script>
+
 
 <style lang="less" scoped>
 #container {
