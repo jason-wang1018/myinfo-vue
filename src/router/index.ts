@@ -177,6 +177,7 @@ export const routes = [
     path: '/largeScreen',
     name: 'largeScreen',
     meta:{
+      keepAlive:true,
       title:'大屏可视化'
     },
     component: () => import('@v/LargeScreen/index.vue')
@@ -204,9 +205,9 @@ export const routes = [
     path: '/register',
     name: 'register',
     component: () => import('@v/RegisterPage/index.vue')
-  }
-]
+  },
 
+]
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_APP_BASE_URL),
   routes

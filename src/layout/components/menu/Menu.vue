@@ -39,6 +39,12 @@
                     </el-sub-menu>
                 </template>
             </template>
+            <el-menu-item index="/writtenSignature">
+                <el-icon>
+                    <EditPen />
+                </el-icon>
+                <template #title>手写签名</template>
+            </el-menu-item>
         </el-menu>
     </div>
 </template>
