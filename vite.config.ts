@@ -12,13 +12,13 @@ export default defineConfig({
   server: {
     open: true,
     port: 9420,
-    // proxy: {
-    //   '/api': {
-    //     target: 'https://www.fastmock.site/mock/935d86475772276cc0f2649e50c82123',
-    //     changeOrigin: true,
-    //     rewrite: (path) => path.replace(/^\/api/, '/api')
-    //   }
-    // }
+    proxy: {
+      '/api': {
+        target: 'https://www.fastmock.site/mock/935d86475772276cc0f2649e50c82123',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '/api')
+      }
+    }
   },
   //路径别名设置
   resolve: {

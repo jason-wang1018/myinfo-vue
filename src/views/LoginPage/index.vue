@@ -137,7 +137,7 @@ const gotoIndex = () => {
                     message: '您已经登录成功啦!!',
                     onClose: () => {
                         lock.value = false
-                        Ro .;bn79p-uter.replace('/')
+                        Router.replace('/')
                     }
                 })
             }

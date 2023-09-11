@@ -39,7 +39,7 @@
                     </el-sub-menu>
                 </template>
             </template>
-            <el-menu-item index="/writtenSignature">
+            <el-menu-item index="/handwrittenSignature">
                 <el-icon>
                     <EditPen />
                 </el-icon>

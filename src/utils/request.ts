@@ -8,13 +8,15 @@ import loading from '@u/loading/index.js'
 
 const request = axios.create({
     //'https://www.fastmock.site/mock/935d86475772276cc0f2649e50c82123' //import.meta.env.VITE_BASE_URL
-    baseURL: 'https://www.fastmock.site/mock/935d86475772276cc0f2649e50c82123/api',
+    baseURL: import.meta.env.VITE_BASE_URL,
     timeout: 5000
 })
 
 request.interceptors.request.use(config => {
-    //开启全局动画
-    // loading.open()
+    if (!['/bigScreenData','/indexChart','/userOnline'].includes(config.url as string)){
+        //开启全局动画
+        loading.open()
+    }
     config.headers.token = getToken()
     // 添加token
     return config
@@ -23,7 +25,8 @@ request.interceptors.request.use(config => {
 })
 
 request.interceptors.response.use(response => {
-    // loading.close()
+    
+    loading.close()
     // 登陆过期了
     if (response.data.code == 401) {
         // 清除用户信息

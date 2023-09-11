@@ -206,8 +206,16 @@ export const routes = [
     name: 'register',
     component: () => import('@v/RegisterPage/index.vue')
   },
-
+  {
+    path:'/handwrittenSignature',
+    name:'handwrittenSignature',
+    meta:{
+      title:'手写签名'
+    },
+    component:()=>import('@v/HandwrittenSignature/index.vue')
+  }
 ]
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_APP_BASE_URL),
   routes
